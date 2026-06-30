@@ -36,8 +36,8 @@
             <span class="kids-title font-bold text-lg tracking-wide">Clever Edukids</span>
         </div>
         <div class="flex items-center space-x-3 text-xs font-bold">
-            <button onclick="changeLanguage('ms')" id="lang-ms" class="bg-white text-amber-500 px-2 py-1 rounded-full border-2 border-white">BM</button>
-            <button onclick="changeLanguage('en')" id="lang-en" class="bg-amber-500 text-white px-2 py-1 rounded-full border-2 border-amber-500">EN</button>
+            <button onclick="changeLanguage('ms')" id="lang-ms" class="bg-white text-amber-500 px-2.5 py-1 rounded-full border-2 border-white cursor-pointer transition">BM</button>
+            <button onclick="changeLanguage('en')" id="lang-en" class="bg-amber-500 text-white px-2.5 py-1 rounded-full border-2 border-amber-500 cursor-pointer transition">EN</button>
             <div class="bg-emerald-500 text-white px-3 py-1 rounded-full flex items-center gap-1 shadow">
                 <i class="fas fa-star text-amber-300 animate-bounce"></i> <span id="top-stars">125</span>
             </div>
@@ -48,114 +48,114 @@
         
         <div id="view-home" class="view-section space-y-6 text-center py-6">
             <div class="space-y-2">
-                <h1 class="kids-title text-3xl font-extrabold text-sky-600 animate-pulse">Selamat Datang! 👋</h1>
+                <h1 id="txt-welcome" class="kids-title text-3xl font-extrabold text-sky-600 animate-pulse">Selamat Datang! 👋</h1>
                 <p class="text-slate-500 font-medium text-sm">Learn, Play & Grow Together</p>
             </div>
             
             <div class="grid grid-cols-2 gap-4 max-w-md mx-auto px-2">
-                <button onclick="switchView('student')" class="bg-gradient-to-br from-pink-400 to-rose-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-rose-600">
+                <button onclick="switchView('student')" class="bg-gradient-to-br from-pink-400 to-rose-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-rose-600 cursor-pointer">
                     <i class="fas fa-gamepad text-4xl mb-2"></i>
-                    <span class="kids-title text-lg font-bold">Pelajar<br><span class="text-xs font-normal opacity-90">(4-12 Tahun)</span></span>
+                    <span class="kids-title text-lg font-bold"><span id="lbl-student">Pelajar</span><br><span id="lbl-student-sub" class="text-xs font-normal opacity-90">(4-12 Tahun)</span></span>
                 </button>
-                <button onclick="switchView('parent')" class="bg-gradient-to-br from-sky-400 to-blue-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-blue-600">
+                <button onclick="switchView('parent')" class="bg-gradient-to-br from-sky-400 to-blue-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-blue-600 cursor-pointer">
                     <i class="fas fa-user-tie text-4xl mb-2"></i>
-                    <span class="kids-title text-lg font-bold">Ibu Bapa<br><span class="text-xs font-normal opacity-90">(Parent)</span></span>
+                    <span class="kids-title text-lg font-bold"><span id="lbl-parent">Ibu Bapa</span><br><span id="lbl-parent-sub" class="text-xs font-normal opacity-90">(Penjaga)</span></span>
                 </button>
-                <button onclick="switchView('teacher')" class="bg-gradient-to-br from-emerald-400 to-teal-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-teal-600">
+                <button onclick="switchView('teacher')" class="bg-gradient-to-br from-emerald-400 to-teal-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-teal-600 cursor-pointer">
                     <i class="fas fa-chalkboard-teacher text-4xl mb-2"></i>
-                    <span class="kids-title text-lg font-bold">Cikgu<br><span class="text-xs font-normal opacity-90">(Teacher)</span></span>
+                    <span class="kids-title text-lg font-bold"><span id="lbl-teacher">Cikgu</span><br><span id="lbl-teacher-sub" class="text-xs font-normal opacity-90">(Pendidik)</span></span>
                 </button>
-                <button onclick="switchView('admin')" class="bg-gradient-to-br from-amber-400 to-orange-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-orange-600">
+                <button onclick="switchView('admin')" class="bg-gradient-to-br from-amber-400 to-orange-400 text-white p-6 rounded-3xl shadow-lg transform active:scale-95 transition flex flex-col items-center justify-center border-b-8 border-orange-600 cursor-pointer">
                     <i class="fas fa-user-shield text-4xl mb-2"></i>
-                    <span class="kids-title text-lg font-bold">Admin<br><span class="text-xs font-normal opacity-90">(Pengurusan)</span></span>
+                    <span class="kids-title text-lg font-bold"><span id="lbl-admin">Admin</span><br><span id="lbl-admin-sub" class="text-xs font-normal opacity-90">(Pengurusan)</span></span>
                 </button>
             </div>
 
             <div class="max-w-md mx-auto bg-white p-4 rounded-3xl shadow-md border-4 border-dashed border-sky-300 mt-6">
-                <h3 class="kids-title text-sky-600 font-bold mb-2"><i class="fas fa-qrcode mr-1"></i> Imbas Kehadiran (QR Code)</h3>
+                <h3 class="kids-title text-sky-600 font-bold mb-2"><i class="fas fa-qrcode mr-1"></i> <span id="txt-qr-title">Imbas Kehadiran (QR Code)</span></h3>
                 <div class="bg-slate-100 h-32 rounded-2xl flex flex-col items-center justify-center border border-slate-200 relative overflow-hidden">
                     <i class="fas fa-qrcode text-5xl text-slate-400"></i>
                     <div class="absolute inset-x-0 top-1/2 h-0.5 bg-red-500 animate-bounce"></div>
-                    <span class="text-xs text-slate-500 mt-2">Sedia untuk Check-in / Out</span>
+                    <span id="txt-qr-status" class="text-xs text-slate-500 mt-2">Sedia untuk Check-in / Out</span>
                 </div>
                 <div class="flex gap-2 mt-3">
-                    <button onclick="triggerAttendance('Check-In')" class="flex-1 bg-emerald-500 text-white py-2 rounded-xl text-xs font-bold shadow active:scale-95">Simulasi Check-In</button>
-                    <button onclick="triggerAttendance('Check-Out')" class="flex-1 bg-rose-500 text-white py-2 rounded-xl text-xs font-bold shadow active:scale-95">Simulasi Check-Out</button>
+                    <button onclick="triggerAttendance('Check-In')" id="btn-sim-in" class="flex-1 bg-emerald-500 text-white py-2 rounded-xl text-xs font-bold shadow active:scale-95 cursor-pointer">Simulasi Check-In</button>
+                    <button onclick="triggerAttendance('Check-Out')" id="btn-sim-out" class="flex-1 bg-rose-500 text-white py-2 rounded-xl text-xs font-bold shadow active:scale-95 cursor-pointer">Simulasi Check-Out</button>
                 </div>
             </div>
         </div>
 
         <div id="view-student" class="view-section hidden space-y-4">
             <div class="flex justify-between items-center">
-                <h2 class="kids-title text-2xl font-bold text-pink-500">Zon Belajar Syok! 🚀</h2>
-                <div class="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-bold"><i class="fas fa-fire mr-1"></i> Streak: 5 Hari</div>
+                <h2 id="txt-zone-title" class="kids-title text-2xl font-bold text-pink-500">Zon Belajar Syok! 🚀</h2>
+                <div class="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-bold"><i class="fas fa-fire mr-1"></i> <span id="txt-streak">Streak: 5 Hari</span></div>
             </div>
 
             <div class="grid grid-cols-2 gap-3" id="subject-grid">
                 <div onclick="openSubject('Bahasa Malaysia')" class="bg-white p-4 rounded-2xl shadow-sm border-2 border-pink-100 text-center cursor-pointer active:scale-95 transition">
                     <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mx-auto text-xl mb-2 font-bold">BM</div>
-                    <span class="font-bold text-sm text-slate-700">Bahasa Malaysia</span>
+                    <span id="sub-bm" class="font-bold text-sm text-slate-700">Bahasa Malaysia</span>
                 </div>
                 <div onclick="openSubject('English')" class="bg-white p-4 rounded-2xl shadow-sm border-2 border-sky-100 text-center cursor-pointer active:scale-95 transition">
                     <div class="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center text-sky-500 mx-auto text-xl mb-2 font-bold">EN</div>
-                    <span class="font-bold text-sm text-slate-700">English</span>
+                    <span id="sub-en" class="font-bold text-sm text-slate-700">English</span>
                 </div>
                 <div onclick="openSubject('Mathematics')" class="bg-white p-4 rounded-2xl shadow-sm border-2 border-amber-100 text-center cursor-pointer active:scale-95 transition">
                     <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-500 mx-auto text-xl mb-2"><i class="fas fa-calculator"></i></div>
-                    <span class="font-bold text-sm text-slate-700">Mathematics</span>
+                    <span id="sub-math" class="font-bold text-sm text-slate-700">Mathematics</span>
                 </div>
                 <div onclick="openSubject('Science')" class="bg-white p-4 rounded-2xl shadow-sm border-2 border-emerald-100 text-center cursor-pointer active:scale-95 transition">
                     <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-500 mx-auto text-xl mb-2"><i class="fas fa-flask"></i></div>
-                    <span class="font-bold text-sm text-slate-700">Science</span>
+                    <span id="sub-sci" class="font-bold text-sm text-slate-700">Science</span>
                 </div>
                 <div onclick="openSubject('Pendidikan Islam')" class="bg-white p-4 rounded-2xl shadow-sm border-2 border-indigo-100 text-center cursor-pointer active:scale-95 transition">
                     <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-500 mx-auto text-xl mb-2"><i class="fas fa-mosque"></i></div>
-                    <span class="font-bold text-sm text-slate-700">Islamic Ed.</span>
+                    <span id="sub-is" class="font-bold text-sm text-slate-700">Islamic Ed.</span>
                 </div>
                 <div onclick="openSubject('Kreativiti & Seni')" class="bg-white p-4 rounded-2xl shadow-sm border-2 border-purple-100 text-center cursor-pointer active:scale-95 transition">
                     <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-500 mx-auto text-xl mb-2"><i class="fas fa-paint-brush"></i></div>
-                    <span class="font-bold text-sm text-slate-700">Arts & Craft</span>
+                    <span id="sub-art" class="font-bold text-sm text-slate-700">Arts & Craft</span>
                 </div>
             </div>
 
             <div id="learning-box" class="hidden bg-white rounded-3xl p-4 shadow-md border-4 border-amber-300 space-y-4 mt-2">
                 <div class="flex justify-between items-center border-b pb-2 border-slate-100">
                     <h3 class="kids-title text-amber-600 font-bold" id="active-subject-title">Subjek</h3>
-                    <button onclick="closeLearningBox()" class="text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+                    <button onclick="closeLearningBox()" class="text-slate-400 hover:text-slate-600 font-bold text-xl cursor-pointer">&times;</button>
                 </div>
                 <div class="bg-amber-50 p-6 rounded-2xl text-center border border-amber-200">
                     <div id="game-flashcard" class="space-y-4">
-                        <span class="text-xs bg-amber-200 text-amber-800 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Flashcard Aktiviti</span>
+                        <span id="txt-flash-tag" class="text-xs bg-amber-200 text-amber-800 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Flashcard Aktiviti</span>
                         <h4 class="text-4xl font-extrabold text-slate-800 my-4" id="flashcard-word">EPAL</h4>
                         <p class="text-sm text-slate-500" id="flashcard-desc">"A - A - Ayam, E - E - Epal!"</p>
-                        <button onclick="playAudio()" class="bg-amber-400 text-white p-3 rounded-full shadow hover:bg-amber-500 active:scale-95 w-12 h-12 flex items-center justify-center mx-auto">
+                        <button onclick="playAudio()" class="bg-amber-400 text-white p-3 rounded-full shadow hover:bg-amber-500 active:scale-95 w-12 h-12 flex items-center justify-center mx-auto cursor-pointer">
                             <i class="fas fa-volume-up text-lg"></i>
                         </button>
                     </div>
                 </div>
                 <div class="space-y-2">
-                    <p class="text-xs font-bold text-slate-500 text-center">Uji Minda: Pilih jawapan betul!</p>
+                    <p id="txt-quiz-prompt" class="text-xs font-bold text-slate-500 text-center">Uji Minda: Pilih jawapan betul!</p>
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="answerQuiz(true)" class="bg-emerald-400 text-white font-bold py-3 px-4 rounded-xl shadow active:scale-95 text-sm">🍎 Epal</button>
-                        <button onclick="answerQuiz(false)" class="bg-rose-400 text-white font-bold py-3 px-4 rounded-xl shadow active:scale-95 text-sm">🍌 Pisang</button>
+                        <button onclick="answerQuiz(true)" id="btn-quiz-opt1" class="bg-emerald-400 text-white font-bold py-3 px-4 rounded-xl shadow active:scale-95 text-sm cursor-pointer">🍎 Epal</button>
+                        <button onclick="answerQuiz(false)" id="btn-quiz-opt2" class="bg-rose-400 text-white font-bold py-3 px-4 rounded-xl shadow active:scale-95 text-sm cursor-pointer">🍌 Pisang</button>
                     </div>
                 </div>
             </div>
 
             <div class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white p-4 rounded-2xl shadow-sm space-y-3">
-                <h3 class="kids-title font-bold text-sm flex items-center"><i class="fas fa-trophy text-amber-300 mr-2"></i> Ganjaran & Lencana Saya</h3>
+                <h3 class="kids-title font-bold text-sm flex items-center"><i class="fas fa-trophy text-amber-300 mr-2"></i> <span id="txt-reward-title">Ganjaran & Lencana Saya</span></h3>
                 <div class="grid grid-cols-4 gap-2 text-center text-[10px]">
                     <div class="bg-white/20 p-2 rounded-xl flex flex-col items-center">
-                        <i class="fas fa-star text-amber-300 text-xl mb-1"></i><span>Pintar</span>
+                        <i class="fas fa-star text-amber-300 text-xl mb-1"></i><span id="badge-p">Pintar</span>
                     </div>
                     <div class="bg-white/20 p-2 rounded-xl flex flex-col items-center">
-                        <i class="fas fa-heart text-pink-300 text-xl mb-1"></i><span>Baik Hati</span>
+                        <i class="fas fa-heart text-pink-300 text-xl mb-1"></i><span id="badge-b">Baik Hati</span>
                     </div>
                     <div class="bg-white/20 p-2 rounded-xl flex flex-col items-center opacity-40">
-                        <i class="fas fa-bolt text-amber-400 text-xl mb-1"></i><span>Laju (Kunci)</span>
+                        <i class="fas fa-bolt text-amber-400 text-xl mb-1"></i><span id="badge-l">Laju (Kunci)</span>
                     </div>
                     <div class="bg-white/20 p-2 rounded-xl flex flex-col items-center opacity-40">
-                        <i class="fas fa-crown text-yellow-300 text-xl mb-1"></i><span>Juara (Kunci)</span>
+                        <i class="fas fa-crown text-yellow-300 text-xl mb-1"></i><span id="badge-j">Juara (Kunci)</span>
                     </div>
                 </div>
             </div>
@@ -166,57 +166,57 @@
                 <div class="w-12 h-12 bg-sky-200 rounded-full flex items-center justify-center text-sky-600 text-xl font-bold">A</div>
                 <div>
                     <h3 class="font-bold text-slate-800 text-sm">Adam Malik</h3>
-                    <p class="text-xs text-slate-500">Tadika Pintar (4 Cerdik)</p>
+                    <p id="txt-parent-class" class="text-xs text-slate-500">Tadika Pintar (4 Cerdik)</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-3 gap-2 text-center">
                 <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
                     <span class="block text-xl font-bold text-emerald-600">95%</span>
-                    <span class="text-[10px] text-slate-500 font-medium">Kehadiran</span>
+                    <span id="stat-attendance" class="text-[10px] text-slate-500 font-medium">Kehadiran</span>
                 </div>
                 <div class="bg-sky-50 p-3 rounded-xl border border-sky-100">
                     <span class="block text-xl font-bold text-sky-600">B+</span>
-                    <span class="text-[10px] text-slate-500 font-medium">Purata Prestasi</span>
+                    <span id="stat-performance" class="text-[10px] text-slate-500 font-medium">Purata Prestasi</span>
                 </div>
                 <div class="bg-amber-50 p-3 rounded-xl border border-amber-100">
                     <span class="block text-xl font-bold text-amber-600">RM 0</span>
-                    <span class="text-[10px] text-slate-500 font-medium">Tunggakan</span>
+                    <span id="stat-fees" class="text-[10px] text-slate-500 font-medium">Tunggakan</span>
                 </div>
             </div>
 
             <div class="bg-white p-4 rounded-2xl shadow-sm">
-                <h4 class="font-bold text-xs text-slate-700 mb-2"><i class="fas fa-chart-line mr-1 text-sky-500"></i> Prestasi Pembelajaran Bulanan</h4>
+                <h4 class="font-bold text-xs text-slate-700 mb-2"><i class="fas fa-chart-line mr-1 text-sky-500"></i> <span id="txt-chart-title">Prestasi Pembelajaran Bulanan</span></h4>
                 <canvas id="parentChart" class="w-full max-h-40"></canvas>
             </div>
 
             <div class="bg-white p-4 rounded-2xl shadow-sm space-y-2">
                 <h4 class="font-bold text-xs text-slate-700 border-b pb-1 flex justify-between">
-                    <span><i class="fas fa-envelope mr-1 text-rose-400"></i> Mesej Cikgu Sofia</span>
+                    <span><i class="fas fa-envelope mr-1 text-rose-400"></i> <span id="txt-teacher-msg-title">Mesej Cikgu Sofia</span></span>
                     <span class="text-[10px] text-emerald-500 font-normal">Online</span>
                 </h4>
-                <div class="text-xs bg-slate-50 p-2 rounded-lg text-slate-600 italic">
+                <div id="txt-teacher-comment" class="text-xs bg-slate-50 p-2 rounded-lg text-slate-600 italic">
                     "Adam sangat aktif hari ini dalam kelas sains, dia berjaya menjawab semua kuiz berkenaan haiwan!"
                 </div>
                 <div class="flex gap-1">
-                    <input type="text" placeholder="Balas mesej cikgu..." class="flex-1 text-xs border p-2 rounded-lg bg-slate-50 focus:outline-sky-400">
-                    <button onclick="alert('Mesej dihantar!')" class="bg-sky-500 text-white px-3 rounded-lg text-xs font-bold"><i class="fas fa-paper-plane"></i></button>
+                    <input type="text" id="input-reply" placeholder="Balas mesej cikgu..." class="flex-1 text-xs border p-2 rounded-lg bg-slate-50 focus:outline-sky-400">
+                    <button onclick="sendParentMessage()" class="bg-sky-500 text-white px-3 rounded-lg text-xs font-bold cursor-pointer"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
 
             <div class="bg-white p-4 rounded-2xl shadow-sm text-xs space-y-2">
-                <h4 class="font-bold text-slate-700"><i class="fas fa-wallet mr-1 text-amber-500"></i> Kewangan & Acara</h4>
+                <h4 class="font-bold text-slate-700"><i class="fas fa-wallet mr-1 text-amber-500"></i> <span id="txt-wallet-title">Kewangan & Acara</span></h4>
                 <div class="flex justify-between items-center p-2 bg-slate-50 rounded-lg">
                     <div>
-                        <p class="font-bold text-slate-700">Yuran Bulanan Julai 2026</p>
+                        <p id="txt-bill-title" class="font-bold text-slate-700">Yuran Bulanan Julai 2026</p>
                         <p class="text-[10px] text-slate-400">Resit #CE-9921</p>
                     </div>
-                    <span class="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded text-[10px]">Lunas</span>
+                    <span id="txt-bill-status" class="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded text-[10px]">Lunas</span>
                 </div>
                 <div class="flex justify-between items-center p-2 bg-amber-50 rounded-lg border border-amber-200">
                     <div>
-                        <p class="font-bold text-amber-800">Hari Sukan Tadika</p>
-                        <p class="text-[10px] text-amber-600">Tarikh: 15 Julai 2026</p>
+                        <p id="txt-event-title" class="font-bold text-amber-800">Hari Sukan Tadika</p>
+                        <p id="txt-event-date" class="text-[10px] text-amber-600">Tarikh: 15 Julai 2026</p>
                     </div>
                     <i class="fas fa-calendar-day text-amber-500 text-lg"></i>
                 </div>
@@ -224,82 +224,82 @@
         </div>
 
         <div id="view-teacher" class="view-section hidden space-y-4">
-            <h2 class="kids-title text-xl font-bold text-emerald-600">Ruangan Pendidik 👩‍🏫</h2>
+            <h2 id="txt-teacher-header" class="kids-title text-xl font-bold text-emerald-600">Ruangan Pendidik 👩‍🏫</h2>
             
             <div class="bg-white p-4 rounded-2xl shadow-sm space-y-3">
                 <div class="flex justify-between items-center border-b pb-1">
-                    <h4 class="font-bold text-xs text-slate-700"><i class="fas fa-clipboard-user text-emerald-500 mr-1"></i> Ambil Kehadiran Hari Ini</h4>
+                    <h4 class="font-bold text-xs text-slate-700"><i class="fas fa-clipboard-user text-emerald-500 mr-1"></i> <span id="txt-take-attendance">Ambil Kehadiran Hari Ini</span></h4>
                     <span class="text-[10px] text-slate-400">Kelas: 4 Cerdik</span>
                 </div>
                 <div class="space-y-2 text-xs">
                     <div class="flex justify-between items-center p-1 bg-slate-50 rounded">
                         <span>1. Adam Malik</span>
                         <div class="flex gap-1">
-                            <button onclick="toggleAttendanceBtn(this)" class="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px]">Hadir</button>
-                            <button onclick="toggleAttendanceBtn(this)" class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px]">Absen</button>
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] btn-present">Hadir</button>
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-absent">Absen</button>
                         </div>
                     </div>
                     <div class="flex justify-between items-center p-1 bg-slate-50 rounded">
                         <span>2. Zara Aisya</span>
                         <div class="flex gap-1">
-                            <button onclick="toggleAttendanceBtn(this)" class="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px]">Hadir</button>
-                            <button onclick="toggleAttendanceBtn(this)" class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px]">Absen</button>
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] btn-present">Hadir</button>
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-absent">Absen</button>
                         </div>
                     </div>
                 </div>
-                <button onclick="alert('Kehadiran berjaya disimpan dan notifikasi dihantar ke ibu bapa!')" class="w-full bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs shadow active:scale-95">Sahkan Kehadiran</button>
+                <button onclick="submitAttendance()" id="btn-submit-attendance" class="w-full bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs shadow active:scale-95 cursor-pointer">Sahkan Kehadiran</button>
             </div>
 
             <div class="bg-white p-4 rounded-2xl shadow-sm space-y-3 text-xs">
-                <h4 class="font-bold text-slate-700"><i class="fas fa-cloud-upload-alt text-sky-500 mr-1"></i> Muat Naik Kerja Rumah / Aktiviti</h4>
+                <h4 class="font-bold text-slate-700"><i class="fas fa-cloud-upload-alt text-sky-500 mr-1"></i> <span id="txt-upload-homework">Muat Naik Kerja Rumah / Aktiviti</span></h4>
                 <div class="space-y-2">
-                    <label class="block font-medium text-slate-600">Tajuk Aktiviti:</label>
-                    <input type="text" placeholder="Contoh: Mewarna Gambar Rama-rama" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-emerald-400">
+                    <label id="lbl-act-title" class="block font-medium text-slate-600">Tajuk Aktiviti:</label>
+                    <input type="text" id="input-act-title" placeholder="Contoh: Mewarna Gambar Rama-rama" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-emerald-400">
                     
-                    <label class="block font-medium text-slate-600">Pilih Subjek:</label>
-                    <select class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-emerald-400">
-                        <option>Bahasa Malaysia</option>
-                        <option>English</option>
-                        <option>Mathematics</option>
-                        <option>Science</option>
+                    <label id="lbl-choose-sub" class="block font-medium text-slate-600">Pilih Subjek:</label>
+                    <select id="select-subject" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-emerald-400">
+                        <option value="BM">Bahasa Malaysia</option>
+                        <option value="EN">English</option>
+                        <option value="MATH">Mathematics</option>
+                        <option value="SCI">Science</option>
                     </select>
 
                     <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center cursor-pointer hover:bg-slate-50">
                         <i class="fas fa-images text-xl text-slate-400 mb-1"></i>
-                        <p class="text-[10px] text-slate-500">Klik untuk tangkap gambar atau lampir fail gambar kelas</p>
+                        <p id="txt-upload-desc" class="text-[10px] text-slate-500">Klik untuk tangkap gambar atau lampir fail gambar kelas</p>
                     </div>
 
-                    <button onclick="alert('Berjaya dikongsi ke feed Ibu Bapa!')" class="w-full bg-sky-500 text-white font-bold py-2 rounded-xl text-xs shadow active:scale-95">Kongsi Kepada Penjaga</button>
+                    <button onclick="shareActivity()" id="btn-share-activity" class="w-full bg-sky-500 text-white font-bold py-2 rounded-xl text-xs shadow active:scale-95 cursor-pointer">Kongsi Kepada Penjaga</button>
                 </div>
             </div>
         </div>
 
         <div id="view-admin" class="view-section hidden space-y-4">
-            <h2 class="kids-title text-xl font-bold text-amber-600">Sistem Pengurusan Admin 🏛️</h2>
+            <h2 id="txt-admin-header" class="kids-title text-xl font-bold text-amber-600">Sistem Pengurusan Admin 🏛️</h2>
             
             <div class="grid grid-cols-2 gap-2 text-center text-xs">
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-sky-400">
                     <span class="block font-bold text-lg text-slate-800">42</span>
-                    <span class="text-slate-500 text-[10px]">Jumlah Pelajar</span>
+                    <span id="txt-total-students" class="text-slate-500 text-[10px]">Jumlah Pelajar</span>
                 </div>
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-emerald-400">
                     <span class="block font-bold text-lg text-slate-800">5</span>
-                    <span class="text-slate-500 text-[10px]">Guru Berdaftar</span>
+                    <span id="txt-total-teachers" class="text-slate-500 text-[10px]">Guru Berdaftar</span>
                 </div>
             </div>
 
             <div class="bg-white p-4 rounded-2xl shadow-sm text-xs space-y-2">
-                <h4 class="font-bold text-slate-700 mb-2 border-b pb-1">Tindakan Pantas Admin</h4>
-                <button onclick="alert('Buka borang tambah pelajar baharu')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center">
-                    <span><i class="fas fa-user-plus text-sky-500 mr-2"></i> Pendaftaran Pelajar Baru</span>
+                <h4 id="txt-admin-actions" class="font-bold text-slate-700 mb-2 border-b pb-1">Tindakan Pantas Admin</h4>
+                <button onclick="adminAction(1)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
+                    <span><i class="fas fa-user-plus text-sky-500 mr-2"></i> <span id="adm-act-1">Pendaftaran Pelajar Baru</span></span>
                     <i class="fas fa-chevron-right text-slate-400"></i>
                 </button>
-                <button onclick="alert('Buka tetapan sistem yuran otomatik')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center">
-                    <span><i class="fas fa-file-invoice-dollar text-amber-500 mr-2"></i> Penjanaan Invois Yuran Bulanan</span>
+                <button onclick="adminAction(2)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
+                    <span><i class="fas fa-file-invoice-dollar text-amber-500 mr-2"></i> <span id="adm-act-2">Penjanaan Invois Yuran Bulanan</span></span>
                     <i class="fas fa-chevron-right text-slate-400"></i>
                 </button>
-                <button onclick="alert('Log sistem keselamatan dijana')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center">
-                    <span><i class="fas fa-shield-alt text-rose-500 mr-2"></i> Laporan Log Keselamatan & QR</span>
+                <button onclick="adminAction(3)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
+                    <span><i class="fas fa-shield-alt text-rose-500 mr-2"></i> <span id="adm-act-3">Laporan Log Keselamatan & QR</span></span>
                     <i class="fas fa-chevron-right text-slate-400"></i>
                 </button>
             </div>
@@ -308,39 +308,197 @@
     </main>
 
     <nav class="bg-white border-t border-slate-200 fixed bottom-0 inset-x-0 h-16 flex justify-around items-center px-2 shadow-inner z-20">
-        <button onclick="switchView('home')" id="nav-home" class="flex flex-col items-center justify-center text-amber-500 font-bold transition-all transform scale-110">
+        <button onclick="switchView('home')" id="nav-home" class="flex flex-col items-center justify-center text-amber-500 font-bold transition-all transform scale-110 cursor-pointer">
             <i class="fas fa-home text-xl"></i>
-            <span class="text-[10px] font-medium mt-0.5">Utama</span>
+            <span id="nav-txt-home" class="text-[10px] font-medium mt-0.5">Utama</span>
         </button>
-        <button onclick="switchView('student')" id="nav-student" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all">
+        <button onclick="switchView('student')" id="nav-student" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
             <i class="fas fa-child text-xl"></i>
-            <span class="text-[10px] font-medium mt-0.5">Pelajar</span>
+            <span id="nav-txt-student" class="text-[10px] font-medium mt-0.5">Pelajar</span>
         </button>
-        <button onclick="switchView('parent')" id="nav-parent" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all">
+        <button onclick="switchView('parent')" id="nav-parent" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
             <i class="fas fa-heart text-xl"></i>
-            <span class="text-[10px] font-medium mt-0.5">Ibu Bapa</span>
+            <span id="nav-txt-parent" class="text-[10px] font-medium mt-0.5">Ibu Bapa</span>
         </button>
-        <button onclick="switchView('teacher')" id="nav-teacher" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all">
+        <button onclick="switchView('teacher')" id="nav-teacher" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
             <i class="fas fa-graduation-cap text-xl"></i>
-            <span class="text-[10px] font-medium mt-0.5">Cikgu</span>
+            <span id="nav-txt-teacher" class="text-[10px] font-medium mt-0.5">Cikgu</span>
         </button>
-        <button onclick="switchView('admin')" id="nav-admin" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all">
+        <button onclick="switchView('admin')" id="nav-admin" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
             <i class="fas fa-lock text-xl"></i>
-            <span class="text-[10px] font-medium mt-0.5">Admin</span>
+            <span id="nav-txt-admin" class="text-[10px] font-medium mt-0.5">Admin</span>
         </button>
     </nav>
 
     <script>
-        // 1. Navigation / View Controller
+        // Data Kamus Bahasa (Localization Dictionary)
+        const translations = {
+            ms: {
+                welcome: "Selamat Datang! 👋",
+                student: "Pelajar", parent: "Ibu Bapa", teacher: "Cikgu", admin: "Admin",
+                student_sub: "(4-12 Tahun)", parent_sub: "(Penjaga)", teacher_sub: "(Pendidik)", admin_sub: "(Pengurusan)",
+                qr_title: "Imbas Kehadiran (QR Code)", qr_status: "Sedia untuk Check-in / Out",
+                sim_in: "Simulasi Check-In", sim_out: "Simulasi Check-Out",
+                nav_home: "Utama", nav_student: "Pelajar", nav_parent: "Ibu Bapa", nav_teacher: "Cikgu", nav_admin: "Admin",
+                zone_title: "Zon Belajar Syok! 🚀", streak: "Streak: 5 Hari",
+                sub_bm: "Bahasa Malaysia", sub_en: "English", sub_math: "Mathematics", sub_sci: "Science", sub_is: "Islamic Ed.", sub_art: "Arts & Craft",
+                flash_tag: "Flashcard Aktiviti", quiz_prompt: "Uji Minda: Pilih jawapan betul!",
+                reward_title: "Ganjaran & Lencana Saya", badge_p: "Pintar", badge_b: "Baik Hati", badge_l: "Laju (Kunci)", badge_j: "Juara (Kunci)",
+                parent_class: "Tadika Pintar (4 Cerdik)", stat_attendance: "Kehadiran", stat_performance: "Purata Prestasi", stat_fees: "Tunggakan",
+                chart_title: "Prestasi Pembelajaran Bulanan", teacher_msg_title: "Mesej Cikgu Sofia",
+                teacher_comment: '"Adam sangat aktif hari ini dalam kelas sains, dia berjaya menjawab semua kuiz berkenaan haiwan!"',
+                input_reply: "Balas mesej cikgu...", wallet_title: "Kewangan & Acara", bill_title: "Yuran Bulanan Julai 2026", bill_status: "Lunas",
+                event_title: "Hari Sukan Tadika", event_date: "Tarikh: 15 Julai 2026",
+                teacher_header: "Ruangan Pendidik 👩‍🏫", take_attendance: "Ambil Kehadiran Hari Ini", btn_present: "Hadir", btn_absent: "Absen",
+                btn_submit_attendance: "Sahkan Kehadiran", upload_homework: "Muat Naik Kerja Rumah / Aktiviti", lbl_act_title: "Tajuk Aktiviti:",
+                input_act_title: "Contoh: Mewarna Gambar Rama-rama", lbl_choose_sub: "Pilih Subjek:", upload_desc: "Klik untuk tangkap gambar atau lampir fail gambar kelas",
+                btn_share_activity: "Kongsi Kepada Penjaga", admin_header: "Sistem Pengurusan Admin 🏛️", total_students: "Jumlah Pelajar",
+                total_teachers: "Guru Berdaftar", admin_actions: "Tindakan Pantas Admin", adm_act_1: "Pendaftaran Pelajar Baru",
+                adm_act_2: "Penjanaan Invois Yuran Bulanan", adm_act_3: "Laporan Log Keselamatan & QR",
+                alert_in: "Adam Malik telah berjaya melakukan Check-In pada ", alert_out: "Adam Malik telah berjaya melakukan Check-Out pada ",
+                alert_msg_sent: "Mesej dihantar!", alert_quiz_ok: "🎉 PANDAI! Jawapan betul. Anda dapat +5 Bintang!", alert_quiz_fail: "❌ Alamak, cuba lagi sayang! Tekan butang yang satu lagi.",
+                alert_audio: "🔊 Memainkan suara sebutan: ", alert_attendance_saved: "Kehadiran berjaya disimpan dan notifikasi dihantar ke ibu bapa!",
+                alert_shared: "Berjaya dikongsi ke feed Ibu Bapa!", alert_admin_1: "Borang tambah pelajar baru dibuka", alert_admin_2: "Sistem yuran automatik diaktifkan", alert_admin_3: "Log keselamatan dijana"
+            },
+            en: {
+                welcome: "Welcome! 👋",
+                student: "Student", parent: "Parent", teacher: "Teacher", admin: "Admin",
+                student_sub: "(4-12 Years)", parent_sub: "(Guardian)", teacher_sub: "(Educator)", admin_sub: "(Management)",
+                qr_title: "Scan Attendance (QR Code)", qr_status: "Ready for Check-in / Out",
+                sim_in: "Simulate Check-In", sim_out: "Simulate Check-Out",
+                nav_home: "Home", nav_student: "Student", nav_parent: "Parent", nav_teacher: "Teacher", nav_admin: "Admin",
+                zone_title: "Fun Learning Zone! 🚀", streak: "Streak: 5 Days",
+                sub_bm: "Malay Language", sub_en: "English", sub_math: "Mathematics", sub_sci: "Science", sub_is: "Islamic Ed.", sub_art: "Arts & Craft",
+                flash_tag: "Activity Flashcard", quiz_prompt: "Brain Teaser: Choose the correct answer!",
+                reward_title: "My Rewards & Badges", badge_p: "Smart", badge_b: "Kind Heart", badge_l: "Fast (Locked)", badge_j: "Champion (Locked)",
+                parent_class: "Smart Kindergarten (4 Cerdik)", stat_attendance: "Attendance", stat_performance: "Avg Performance", stat_fees: "Outstanding",
+                chart_title: "Monthly Learning Performance", teacher_msg_title: "Message from Teacher Sofia",
+                teacher_comment: '"Adam was very active in science class today, he successfully answered all animal quizzes!"',
+                input_reply: "Reply to teacher...", wallet_title: "Finance & Events", bill_title: "July 2026 Monthly Fees", bill_status: "Paid",
+                event_title: "Kindergarten Sports Day", event_date: "Date: July 15, 2026",
+                teacher_header: "Educator Corner 👩‍🏫", take_attendance: "Take Attendance Today", btn_present: "Present", btn_absent: "Absent",
+                btn_submit_attendance: "Confirm Attendance", upload_homework: "Upload Homework / Activity", lbl_act_title: "Activity Title:",
+                input_act_title: "Example: Coloring Butterfly Picture", lbl_choose_sub: "Select Subject:", upload_desc: "Click to capture image or attach classroom photo file",
+                btn_share_activity: "Share with Guardians", admin_header: "Admin Management System 🏛️", total_students: "Total Students",
+                total_teachers: "Registered Teachers", admin_actions: "Admin Quick Actions", adm_act_1: "New Student Registration",
+                adm_act_2: "Generate Monthly Fee Invoice", adm_act_3: "Security Log & QR Report",
+                alert_in: "Adam Malik successfully Checked-In at ", alert_out: "Adam Malik successfully Checked-Out at ",
+                alert_msg_sent: "Message sent!", alert_quiz_ok: "🎉 SMART! Correct answer. You got +5 Stars!", alert_quiz_fail: "❌ Oops, try again dear! Press the other button.",
+                alert_audio: "🔊 Playing pronunciation audio: ", alert_attendance_saved: "Attendance saved successfully and notifications sent to parents!",
+                alert_shared: "Successfully shared to Parent's feed!", alert_admin_1: "Opening new student registration form", alert_admin_2: "Automatic fee settings activated", alert_admin_3: "Security log report generated",
+            }
+        };
+
+        let currentLang = 'ms';
+
+        // Fungsi Penukaran Bahasa Dinamik
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Kemaskini Visual Butang Bahasa
+            if(lang === 'ms') {
+                document.getElementById('lang-ms').className = "bg-white text-amber-500 px-2.5 py-1 rounded-full border-2 border-white cursor-pointer font-bold";
+                document.getElementById('lang-en').className = "bg-amber-500 text-white px-2.5 py-1 rounded-full border-2 border-amber-500 cursor-pointer font-bold";
+            } else {
+                document.getElementById('lang-en').className = "bg-white text-amber-500 px-2.5 py-1 rounded-full border-2 border-white cursor-pointer font-bold";
+                document.getElementById('lang-ms').className = "bg-amber-500 text-white px-2.5 py-1 rounded-full border-2 border-amber-500 cursor-pointer font-bold";
+            }
+
+            // Kemaskini Teks DOM Berdasarkan Kamus Bahasa
+            document.getElementById('txt-welcome').innerHTML = translations[lang].welcome;
+            document.getElementById('lbl-student').innerText = translations[lang].student;
+            document.getElementById('lbl-student-sub').innerText = translations[lang].student_sub;
+            document.getElementById('lbl-parent').innerText = translations[lang].parent;
+            document.getElementById('lbl-parent-sub').innerText = translations[lang].parent_sub;
+            document.getElementById('lbl-teacher').innerText = translations[lang].teacher;
+            document.getElementById('lbl-teacher-sub').innerText = translations[lang].teacher_sub;
+            document.getElementById('lbl-admin').innerText = translations[lang].admin;
+            document.getElementById('lbl-admin-sub').innerText = translations[lang].admin_sub;
+            
+            document.getElementById('txt-qr-title').innerText = translations[lang].qr_title;
+            document.getElementById('txt-qr-status').innerText = translations[lang].qr_status;
+            document.getElementById('btn-sim-in').innerText = translations[lang].sim_in;
+            document.getElementById('btn-sim-out').innerText = translations[lang].sim_out;
+
+            document.getElementById('nav-txt-home').innerText = translations[lang].nav_home;
+            document.getElementById('nav-txt-student').innerText = translations[lang].nav_student;
+            document.getElementById('nav-txt-parent').innerText = translations[lang].nav_parent;
+            document.getElementById('nav-txt-teacher').innerText = translations[lang].nav_teacher;
+            document.getElementById('nav-txt-admin').innerText = translations[lang].nav_admin;
+
+            document.getElementById('txt-zone-title').innerText = translations[lang].zone_title;
+            document.getElementById('txt-streak').innerText = translations[lang].streak;
+            document.getElementById('sub-bm').innerText = translations[lang].sub_bm;
+            document.getElementById('sub-en').innerText = translations[lang].sub_en;
+            document.getElementById('sub-math').innerText = translations[lang].sub_math;
+            document.getElementById('sub-sci').innerText = translations[lang].sub_sci;
+            document.getElementById('sub-is').innerText = translations[lang].sub_is;
+            document.getElementById('sub-art').innerText = translations[lang].sub_art;
+
+            document.getElementById('txt-flash-tag').innerText = translations[lang].flash_tag;
+            document.getElementById('txt-quiz-prompt').innerText = translations[lang].quiz_prompt;
+            document.getElementById('txt-reward-title').innerText = translations[lang].reward_title;
+            document.getElementById('badge-p').innerText = translations[lang].badge_p;
+            document.getElementById('badge-b').innerText = translations[lang].badge_b;
+            document.getElementById('badge-l').innerText = translations[lang].badge_l;
+            document.getElementById('badge-j').innerText = translations[lang].badge_j;
+
+            document.getElementById('txt-parent-class').innerText = translations[lang].parent_class;
+            document.getElementById('stat-attendance').innerText = translations[lang].stat_attendance;
+            document.getElementById('stat-performance').innerText = translations[lang].stat_performance;
+            document.getElementById('stat-fees').innerText = translations[lang].stat_fees;
+            document.getElementById('txt-chart-title').innerText = translations[lang].chart_title;
+            document.getElementById('txt-teacher-msg-title').innerText = translations[lang].teacher_msg_title;
+            document.getElementById('txt-teacher-comment').innerText = translations[lang].teacher_comment;
+            document.getElementById('input-reply').placeholder = translations[lang].input_reply;
+            document.getElementById('txt-wallet-title').innerText = translations[lang].wallet_title;
+            document.getElementById('txt-bill-title').innerText = translations[lang].bill_title;
+            document.getElementById('txt-bill-status').innerText = translations[lang].bill_status;
+            document.getElementById('txt-event-title').innerText = translations[lang].event_title;
+            document.getElementById('txt-event-date').innerText = translations[lang].event_date;
+
+            document.getElementById('txt-teacher-header').innerText = translations[lang].teacher_header;
+            document.getElementById('txt-take-attendance').innerText = translations[lang].take_attendance;
+            document.querySelectorAll('.btn-present').forEach(el => el.innerText = translations[lang].btn_present);
+            document.querySelectorAll('.btn-absent').forEach(el => el.innerText = translations[lang].btn_absent);
+            document.getElementById('btn-submit-attendance').innerText = translations[lang].btn_submit_attendance;
+            document.getElementById('txt-upload-homework').innerText = translations[lang].upload_homework;
+            document.getElementById('lbl-act-title').innerText = translations[lang].lbl_act_title;
+            document.getElementById('input-act-title').placeholder = translations[lang].input_act_title;
+            document.getElementById('lbl-choose-sub').innerText = translations[lang].lbl_choose_sub;
+            document.getElementById('txt-upload-desc').innerText = translations[lang].upload_desc;
+            document.getElementById('btn-share-activity').innerText = translations[lang].btn_share_activity;
+
+            document.getElementById('txt-admin-header').innerText = translations[lang].admin_header;
+            document.getElementById('txt-total-students').innerText = translations[lang].total_students;
+            document.getElementById('txt-total-teachers').innerText = translations[lang].total_teachers;
+            document.getElementById('txt-admin-actions').innerText = translations[lang].admin_actions;
+            document.getElementById('adm-act-1').innerText = translations[lang].adm_act_1;
+            document.getElementById('adm-act-2').innerText = translations[lang].adm_act_2;
+            document.getElementById('adm-act-3').innerText = translations[lang].adm_act_3;
+
+            // Kemaskini Pilihan Kuiz Mengikut Bahasa
+            if(lang === 'en') {
+                document.getElementById('btn-quiz-opt1').innerText = "🍎 Apple";
+                document.getElementById('btn-quiz-opt2').innerText = "🍌 Banana";
+            } else {
+                document.getElementById('btn-quiz-opt1').innerText = "🍎 Epal";
+                document.getElementById('btn-quiz-opt2').innerText = "🍌 Pisang";
+            }
+            
+            // Kemaskini Semula Label Graf Jikalau Graf Aktif
+            if(!document.getElementById('view-parent').classList.contains('hidden')) {
+                renderParentChart();
+            }
+        }
+
+        // Navigation Controller
         function switchView(viewId) {
-            // Hide all views
             document.querySelectorAll('.view-section').forEach(section => {
                 section.classList.add('hidden');
             });
-            // Show requested view
             document.getElementById('view-' + viewId).classList.remove('hidden');
 
-            // Reset navigation button states
             const navIds = ['home', 'student', 'parent', 'teacher', 'admin'];
             navIds.forEach(id => {
                 const btn = document.getElementById('nav-' + id);
@@ -353,40 +511,42 @@
                 }
             });
             
-            // Re-render chart if switching to parent view
             if (viewId === 'parent') {
                 setTimeout(renderParentChart, 100);
             }
         }
 
-        // 2. Language Switcher (Mock-up translation state)
-        let currentLang = 'ms';
-        function changeLanguage(lang) {
-            currentLang = lang;
-            if(lang === 'ms') {
-                document.getElementById('lang-ms').className = "bg-white text-amber-500 px-2 py-1 rounded-full border-2 border-white";
-                document.getElementById('lang-en').className = "bg-amber-500 text-white px-2 py-1 rounded-full border-2 border-amber-500";
-            } else {
-                document.getElementById('lang-en').className = "bg-white text-amber-500 px-2 py-1 rounded-full border-2 border-white";
-                document.getElementById('lang-ms').className = "bg-amber-500 text-white px-2 py-1 rounded-full border-2 border-amber-500";
-                alert("Language switched to English! (Interface demo mode)");
-            }
-        }
-
-        // 3. Student Interactive Learning Sandbox Data
+        // Sandbox Learning Module Data
         const subjectData = {
-            'Bahasa Malaysia': { word: 'EPAL', desc: '"A - A - Ayam, E - E - Epal!"' },
-            'English': { word: 'CAT', desc: '"C - A - T spells Meow!"' },
-            'Mathematics': { word: '1 + 2 = 3', desc: '"Kira jari: Satu tambah Dua jadi Tiga!"' },
-            'Science': { word: 'AIR', desc: '"Hujan membekalkan air bersih."' },
-            'Pendidikan Islam': { word: 'ALIF', desc: '"Alif, Ba, Ta... Jom mengaji!"' },
-            'Kreativiti & Seni': { word: 'LUKIS', desc: '"Mari campur warna merah dan kuning!"' }
+            ms: {
+                'Bahasa Malaysia': { word: 'EPAL', desc: '"A - A - Ayam, E - E - Epal!"' },
+                'English': { word: 'CAT', desc: '"C - A - T bunyinya Meow!"' },
+                'Mathematics': { word: '1 + 2 = 3', desc: '"Kira jari: Satu tambah Dua jadi Tiga!"' },
+                'Science': { word: 'AIR', desc: '"Hujan membekalkan air bersih untuk pokok."' },
+                'Pendidikan Islam': { word: 'ALIF', desc: '"Alif, Ba, Ta... Jom mengaji bersama!"' },
+                'Kreativiti & Seni': { word: 'LUKIS', desc: '"Mari campur warna merah dan kuning!"' }
+            },
+            en: {
+                'Bahasa Malaysia': { word: 'EPAL', desc: '"A for Apple, E for Epal!"' },
+                'English': { word: 'CAT', desc: '"C - A - T spells Meow!"' },
+                'Mathematics': { word: '1 + 2 = 3', desc: '"Count fingers: One plus Two equals Three!"' },
+                'Science': { word: 'WATER', desc: '"Rain provides clean water for plants."' },
+                'Pendidikan Islam': { word: 'ALIF', desc: '"Alif, Ba, Ta... Let\'s recite together!"' },
+                'Kreativiti & Seni': { word: 'DRAW', desc: '"Let\'s mix red and yellow colors!"' }
+            }
         };
 
         function openSubject(subject) {
-            document.getElementById('active-subject-title').innerText = subject;
-            document.getElementById('flashcard-word').innerText = subjectData[subject].word;
-            document.getElementById('flashcard-desc').innerText = subjectData[subject].desc;
+            let activeSubjectDisplay = subject;
+            if(currentLang === 'en') {
+                if(subject === 'Bahasa Malaysia') activeSubjectDisplay = "Malay Language";
+                if(subject === 'Pendidikan Islam') activeSubjectDisplay = "Islamic Ed.";
+                if(subject === 'Kreativiti & Seni') activeSubjectDisplay = "Arts & Craft";
+            }
+            
+            document.getElementById('active-subject-title').innerText = activeSubjectDisplay;
+            document.getElementById('flashcard-word').innerText = subjectData[currentLang][subject].word;
+            document.getElementById('flashcard-desc').innerText = subjectData[currentLang][subject].desc;
             
             document.getElementById('learning-box').classList.remove('hidden');
             document.getElementById('learning-box').scrollIntoView({ behavior: 'smooth' });
@@ -397,35 +557,56 @@
         }
 
         function playAudio() {
-            // Simulated audio player
-            alert("🔊 Memainkan suara sebutan: " + document.getElementById('flashcard-word').innerText);
+            alert(translations[currentLang].alert_audio + document.getElementById('flashcard-word').innerText);
         }
 
         function answerQuiz(isCorrect) {
             if(isCorrect) {
-                alert("🎉 PANDAI! Jawapan betul. Anda dapat +5 Bintang!");
+                alert(translations[currentLang].alert_quiz_ok);
                 let currentStars = parseInt(document.getElementById('top-stars').innerText);
                 document.getElementById('top-stars').innerText = currentStars + 5;
             } else {
-                alert("❌ Alamak, cuba lagi sayang! Tekan butang yang satu lagi.");
+                alert(translations[currentLang].alert_quiz_fail);
             }
         }
 
-        // 4. QR Attendance Notification Simulation
+        // Interaksi Simulasi & Makluman
         function triggerAttendance(type) {
-            alert(`📲 [NOTIFIKASI IBU BAPA]\n\nClever Edukids: Adam Malik telah berjaya melakukan ${type} pada ${new Date().toLocaleTimeString('ms-MY')}.`);
+            let prefix = type === 'Check-In' ? translations[currentLang].alert_in : translations[currentLang].alert_out;
+            alert(`📲 [NOTIFIKASI IBU BAPA]\n\nClever Edukids: ${prefix}${new Date().toLocaleTimeString('ms-MY')}.`);
         }
 
-        // 5. Teacher attendance toggle presentation helper
+        function sendParentMessage() {
+            alert(translations[currentLang].alert_msg_sent);
+            document.getElementById('input-reply').value = "";
+        }
+
+        function submitAttendance() {
+            alert(translations[currentLang].alert_attendance_saved);
+        }
+
+        function shareActivity() {
+            alert(translations[currentLang].alert_shared);
+            document.getElementById('input-act-title').value = "";
+        }
+
+        function adminAction(type) {
+            alert(translations[currentLang]['alert_admin_' + type]);
+        }
+
         function toggleAttendanceBtn(btn) {
             const parent = btn.parentElement;
             parent.querySelectorAll('button').forEach(b => {
-                b.className = "bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px]";
+                b.className = b.classList.contains('btn-present') ? "bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-present" : "bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-absent";
             });
-            btn.className = "bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px]";
+            if(btn.classList.contains('btn-present')) {
+                btn.className = "bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] btn-present";
+            } else {
+                btn.className = "bg-rose-500 text-white px-2 py-0.5 rounded text-[10px] btn-absent";
+            }
         }
 
-        // 6. Parent Chart Initialization (Chart.js)
+        // Render Graf Pembelajaran (Chart.js)
         let chartInstance = null;
         function renderParentChart() {
             const ctx = document.getElementById('parentChart');
@@ -435,12 +616,15 @@
                 chartInstance.destroy();
             }
 
+            let chartLabels = currentLang === 'ms' ? ['B.Melayu', 'English', 'Maths', 'Sains', 'Agama', 'Seni'] : ['Malay', 'English', 'Maths', 'Science', 'Islamic', 'Arts'];
+            let datasetLabel = currentLang === 'ms' ? 'Markah Aktiviti (%)' : 'Activity Scores (%)';
+
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['B.Melayu', 'English', 'Maths', 'Sains', 'Agama', 'Seni'],
+                    labels: chartLabels,
                     datasets: [{
-                        label: 'Markah Aktiviti (%)',
+                        label: datasetLabel,
                         data: [90, 85, 78, 92, 95, 88],
                         backgroundColor: [
                             'rgba(244, 63, 94, 0.6)',
