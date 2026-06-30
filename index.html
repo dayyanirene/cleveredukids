@@ -360,10 +360,47 @@
                 <h3 id="modal-list-title" class="kids-title text-emerald-600 font-bold text-base"><i class="fas fa-list mr-1"></i> Senarai Pelajar Berdaftar</h3>
                 <button onclick="closeStudentListModal()" class="text-slate-400 hover:text-slate-600 font-bold text-xl cursor-pointer">&times;</button>
             </div>
+            <p class="text-[10px] text-slate-400 italic text-center" id="txt-click-hint">Tip: Klik pada nama pelajar untuk melihat butiran lengkap.</p>
             <div class="max-h-60 overflow-y-auto custom-scrollbar space-y-2 text-xs" id="student-list-container">
                 </div>
             <div class="pt-2">
                 <button type="button" onclick="closeStudentListModal()" id="btn-list-close" class="w-full bg-slate-200 text-slate-600 font-bold py-2 rounded-xl shadow active:scale-95 cursor-pointer">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-student-details" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-55 animate-fade-in">
+        <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-sky-400 space-y-4">
+            <div class="flex justify-between items-center border-b pb-2 border-slate-100">
+                <h3 class="kids-title text-sky-600 font-bold text-base"><i class="fas fa-id-card mr-1"></i> <span id="modal-details-title">Butiran Lengkap Pelajar</span></h3>
+                <button onclick="closeStudentDetailsModal()" class="text-slate-400 hover:text-slate-600 font-bold text-xl cursor-pointer">&times;</button>
+            </div>
+            <div class="space-y-3 text-xs bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-name">Nama Pelajar</p>
+                    <p class="text-sm font-bold text-slate-800" id="det-student-name">-</p>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-age">Umur</p>
+                        <p class="text-sm font-bold text-slate-800" id="det-student-age">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-relation">Hubungan</p>
+                        <p class="text-sm font-bold text-slate-800" id="det-parent-relation">-</p>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-pname">Nama Penjaga</p>
+                    <p class="text-sm font-bold text-slate-800" id="det-parent-name">-</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-phone">No. Telefon Penjaga</p>
+                    <p class="text-sm font-bold text-sky-600" id="det-parent-phone">-</p>
+                </div>
+            </div>
+            <div class="pt-1 flex gap-2">
+                <button type="button" onclick="closeStudentDetailsModal()" class="w-full bg-slate-200 text-slate-600 font-bold py-2 rounded-xl shadow active:scale-95 cursor-pointer" id="btn-details-back">Kembali</button>
             </div>
         </div>
     </div>
@@ -421,7 +458,8 @@
                 alert_shared: "Berjaya dikongsi ke feed Ibu Bapa!", alert_admin_1: "Borang tambah pelajar baru dibuka", alert_admin_2: "Sistem yuran automatik diaktifkan", alert_admin_3: "Log keselamatan dijana",
                 modal_reg_title: " Borang Pendaftaran Baru", modal_list_title: " Senarai Pelajar Berdaftar", lbl_form_name: "Nama Penuh Pelajar:", lbl_form_age: "Umur (Tahun):", lbl_form_relation: "Hubungan Penjaga:",
                 lbl_form_pname: "Nama Penuh Penjaga:", lbl_form_phone: "No. Telefon Bimbit:", btn_form_cancel: "Batal", btn_form_submit: "Daftar Sekarang", btn_list_close: "Tutup",
-                success_reg: " Berjaya mendaftarkan pelajar: ", guardian_lbl: "Penjaga"
+                success_reg: " Berjaya mendaftarkan pelajar: ", guardian_lbl: "Penjaga",
+                modal_details_title: "Butiran Lengkap Pelajar", det_lbl_name: "Nama Pelajar", det_lbl_age: "Umur", det_lbl_relation: "Hubungan", det_lbl_pname: "Nama Penjaga", det_lbl_phone: "No. Telefon Penjaga", btn_details_back: "Kembali", click_hint: "Tip: Klik pada nama pelajar untuk melihat butiran lengkap."
             },
             en: {
                 welcome: "Welcome! 👋",
@@ -451,7 +489,8 @@
                 alert_shared: "Successfully shared to Parent's feed!", alert_admin_1: "Opening new student registration form", alert_admin_2: "Automatic fee settings activated", alert_admin_3: "Security log report generated",
                 modal_reg_title: " New Student Registration Form", modal_list_title: " Registered Student List", lbl_form_name: "Student Full Name:", lbl_form_age: "Age (Years):", lbl_form_relation: "Guardian Relationship:",
                 lbl_form_pname: "Guardian Full Name:", lbl_form_phone: "Mobile Phone No:", btn_form_cancel: "Cancel", btn_form_submit: "Register Now", btn_list_close: "Close",
-                success_reg: " Successfully registered student: ", guardian_lbl: "Guardian"
+                success_reg: " Successfully registered student: ", guardian_lbl: "Guardian",
+                modal_details_title: "Student Complete Details", det_lbl_name: "Student Name", det_lbl_age: "Age", det_lbl_relation: "Relationship", det_lbl_pname: "Guardian Name", det_lbl_phone: "Guardian Phone No", btn_details_back: "Back", click_hint: "Tip: Click on student's name to view full details."
             }
         };
 
@@ -459,11 +498,11 @@
         let selectedFileName = ""; 
         let totalStudentsCount = 42;
 
-        // Simulasi pangkalan data pelajar asal
+        // Pangkalan data simulasi dengan penambahan No Telefon untuk butiran lengkap
         let studentsList = [
-            { name: "Adam Malik", age: 5, relation: "Bapa", parentName: "Ahmad Bin Yusof" },
-            { name: "Zara Aisya", age: 6, relation: "Ibu", parentName: "Siti Aminah" },
-            { name: "Muhammad Ali", age: 5, relation: "Bapa", parentName: "Yusof Kassim" }
+            { name: "Adam Malik", age: 5, relation: "Bapa", parentName: "Ahmad Bin Yusof", phone: "012-3456789" },
+            { name: "Zara Aisya", age: 6, relation: "Ibu", parentName: "Siti Aminah", phone: "019-8765432" },
+            { name: "Muhammad Ali", age: 5, relation: "Bapa", parentName: "Yusof Kassim", phone: "011-1234567" }
         ];
 
         function handleFileSelect(input) {
@@ -561,7 +600,6 @@
             document.getElementById('adm-act-3').innerText = translations[lang].adm_act_3;
             document.getElementById('adm-act-4').innerText = translations[lang].adm_act_4;
 
-            // Terjemahan komponen Modal Pendaftaran baru
             document.getElementById('modal-registration').querySelector('h3').innerHTML = `<i class="fas fa-user-plus mr-1"></i> ${translations[lang].modal_reg_title}`;
             document.getElementById('lbl-form-name').innerText = translations[lang].lbl_form_name;
             document.getElementById('lbl-form-age').innerText = translations[lang].lbl_form_age;
@@ -571,9 +609,18 @@
             document.getElementById('btn-form-cancel').innerText = translations[lang].btn_form_cancel;
             document.getElementById('btn-form-submit').innerText = translations[lang].btn_form_submit;
 
-            // Terjemahan komponen Modal Senarai Pelajar
             document.getElementById('modal-student-list').querySelector('h3').innerHTML = `<i class="fas fa-list mr-1"></i> ${translations[lang].modal_list_title}`;
             document.getElementById('btn-list-close').innerText = translations[lang].btn_list_close;
+            document.getElementById('txt-click-hint').innerText = translations[lang].click_hint;
+
+            // Kemas kini Terjemahan Modal Butiran Lengkap Pelajar
+            document.getElementById('modal-details-title').innerText = translations[lang].modal_details_title;
+            document.getElementById('det-lbl-name').innerText = translations[lang].det_lbl_name;
+            document.getElementById('det-lbl-age').innerText = translations[lang].det_lbl_age;
+            document.getElementById('det-lbl-relation').innerText = translations[lang].det_lbl_relation;
+            document.getElementById('det-lbl-pname').innerText = translations[lang].det_lbl_pname;
+            document.getElementById('det-lbl-phone').innerText = translations[lang].det_lbl_phone;
+            document.getElementById('btn-details-back').innerText = translations[lang].btn_details_back;
 
             if(lang === 'en') {
                 document.getElementById('btn-quiz-opt1').innerText = "🍎 Apple";
@@ -707,16 +754,16 @@
             const studentAge = document.getElementById('reg-student-age').value;
             const parentRelation = document.getElementById('reg-parent-relation').value;
             const parentName = document.getElementById('reg-parent-name').value;
+            const parentPhone = document.getElementById('reg-parent-phone').value;
             
-            // Simpan maklumat pelajar baru ke dalam senarai
             studentsList.push({
                 name: studentName,
                 age: studentAge,
                 relation: parentRelation,
-                parentName: parentName
+                parentName: parentName,
+                phone: parentPhone
             });
 
-            // Pengiraan simulasi penambahan pelajar
             totalStudentsCount++;
             document.getElementById('num-total-students').innerText = totalStudentsCount;
             
@@ -733,17 +780,43 @@
             document.getElementById('modal-student-list').classList.add('hidden');
         }
 
+        // Papar Modal Butiran Pelajar secara terperinci
+        function showStudentDetails(index) {
+            const student = studentsList[index];
+            if (!student) return;
+
+            document.getElementById('det-student-name').innerText = student.name;
+            document.getElementById('det-student-age').innerText = `${student.age} ${currentLang === 'ms' ? 'Tahun' : 'Years Old'}`;
+            document.getElementById('det-parent-relation').innerText = student.relation;
+            document.getElementById('det-parent-name').innerText = student.parentName;
+            document.getElementById('det-parent-phone').innerText = student.phone;
+
+            document.getElementById('modal-student-details').classList.remove('hidden');
+        }
+
+        function closeStudentDetailsModal() {
+            document.getElementById('modal-student-details').classList.add('hidden');
+        }
+
         function renderStudentList() {
             const container = document.getElementById('student-list-container');
             container.innerHTML = "";
             
             studentsList.forEach((student, index) => {
                 const item = document.createElement('div');
-                item.className = "p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex justify-between items-center";
+                // Menambah 'cursor-pointer hover:bg-emerald-50 transition' supaya interaktif apabila disentuh atau klik
+                item.className = "p-2.5 bg-slate-50 hover:bg-emerald-50 rounded-lg border border-slate-100 flex justify-between items-center cursor-pointer transition transform active:scale-98 shadow-xs";
+                item.setAttribute('onclick', `showStudentDetails(${index})`);
                 item.innerHTML = `
-                    <div>
-                        <p class="font-bold text-slate-700">${index + 1}. ${student.name} (${student.age} Thn)</p>
-                        <p class="text-[10px] text-slate-500">${translations[currentLang].guardian_lbl}: ${student.parentName} (${student.relation})</p>
+                    <div class="flex-1">
+                        <p class="font-bold text-slate-700 text-sm flex items-center justify-between">
+                            <span>${index + 1}. ${student.name}</span>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-1.5 py-0.5 rounded-full">${student.age} Thn</span>
+                        </p>
+                        <p class="text-[10px] text-slate-400 mt-1"><i class="fas fa-user text-slate-400 mr-1"></i> ${translations[currentLang].guardian_lbl}: ${student.parentName} (${student.relation})</p>
+                    </div>
+                    <div class="text-emerald-500 pl-2">
+                        <i class="fas fa-chevron-right text-xs"></i>
                     </div>
                 `;
                 container.appendChild(item);
