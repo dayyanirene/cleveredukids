@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -281,7 +282,7 @@
             
             <div class="grid grid-cols-2 gap-2 text-center text-xs">
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-sky-400">
-                    <span id="num-total-students" class="block font-bold text-lg text-slate-800">0</span>
+                    <span id="num-total-students" class="block font-bold text-lg text-slate-800">42</span>
                     <span id="txt-total-students" class="text-slate-500 text-[10px]">Jumlah Pelajar</span>
                 </div>
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-emerald-400">
@@ -355,4 +356,530 @@
     </div>
 
     <div id="modal-student-list" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50 animate-fade-in">
-        <div class="bg-white rounded-3xl w-full max-w-sm p-
+        <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-emerald-400 space-y-4">
+            <div class="flex justify-between items-center border-b pb-2 border-slate-100">
+                <h3 id="modal-list-title" class="kids-title text-emerald-600 font-bold text-base"><i class="fas fa-list mr-1"></i> Senarai Pelajar Berdaftar</h3>
+                <button onclick="closeStudentListModal()" class="text-slate-400 hover:text-slate-600 font-bold text-xl cursor-pointer">&times;</button>
+            </div>
+            <p class="text-[10px] text-slate-400 italic text-center" id="txt-click-hint">Tip: Klik pada nama pelajar untuk melihat butiran lengkap.</p>
+            <div class="max-h-60 overflow-y-auto custom-scrollbar space-y-2 text-xs" id="student-list-container">
+                </div>
+            <div class="pt-2">
+                <button type="button" onclick="closeStudentListModal()" id="btn-list-close" class="w-full bg-slate-200 text-slate-600 font-bold py-2 rounded-xl shadow active:scale-95 cursor-pointer">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-student-details" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-55 animate-fade-in">
+        <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-sky-400 space-y-4">
+            <div class="flex justify-between items-center border-b pb-2 border-slate-100">
+                <h3 class="kids-title text-sky-600 font-bold text-base"><i class="fas fa-id-card mr-1"></i> <span id="modal-details-title">Butiran Lengkap Pelajar</span></h3>
+                <button onclick="closeStudentDetailsModal()" class="text-slate-400 hover:text-slate-600 font-bold text-xl cursor-pointer">&times;</button>
+            </div>
+            <div class="space-y-3 text-xs bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-name">Nama Pelajar</p>
+                    <p class="text-sm font-bold text-slate-800" id="det-student-name">-</p>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-age">Umur</p>
+                        <p class="text-sm font-bold text-slate-800" id="det-student-age">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-relation">Hubungan</p>
+                        <p class="text-sm font-bold text-slate-800" id="det-parent-relation">-</p>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-pname">Nama Penjaga</p>
+                    <p class="text-sm font-bold text-slate-800" id="det-parent-name">-</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" id="det-lbl-phone">No. Telefon Penjaga</p>
+                    <p class="text-sm font-bold text-sky-600" id="det-parent-phone">-</p>
+                </div>
+            </div>
+            <div class="pt-1 flex gap-2">
+                <button type="button" onclick="closeStudentDetailsModal()" class="w-full bg-slate-200 text-slate-600 font-bold py-2 rounded-xl shadow active:scale-95 cursor-pointer" id="btn-details-back">Kembali</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bg-white border-t border-slate-200 fixed bottom-0 inset-x-0 h-16 flex justify-around items-center px-2 shadow-inner z-20">
+        <button onclick="switchView('home')" id="nav-home" class="flex flex-col items-center justify-center text-amber-500 font-bold transition-all transform scale-110 cursor-pointer">
+            <i class="fas fa-home text-xl"></i>
+            <span id="nav-txt-home" class="text-[10px] font-medium mt-0.5">Utama</span>
+        </button>
+        <button onclick="switchView('student')" id="nav-student" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
+            <i class="fas fa-child text-xl"></i>
+            <span id="nav-txt-student" class="text-[10px] font-medium mt-0.5">Pelajar</span>
+        </button>
+        <button onclick="switchView('parent')" id="nav-parent" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
+            <i class="fas fa-heart text-xl"></i>
+            <span id="nav-txt-parent" class="text-[10px] font-medium mt-0.5">Ibu Bapa</span>
+        </button>
+        <button onclick="switchView('teacher')" id="nav-teacher" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
+            <i class="fas fa-graduation-cap text-xl"></i>
+            <span id="nav-txt-teacher" class="text-[10px] font-medium mt-0.5">Cikgu</span>
+        </button>
+        <button onclick="switchView('admin')" id="nav-admin" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
+            <i class="fas fa-lock text-xl"></i>
+            <span id="nav-txt-admin" class="text-[10px] font-medium mt-0.5">Admin</span>
+        </button>
+    </nav>
+
+    <script>
+        const translations = {
+            ms: {
+                welcome: "Selamat Datang! 👋",
+                student: "Pelajar", parent: "Ibu Bapa", teacher: "Cikgu", admin: "Admin",
+                student_sub: "(4-12 Tahun)", parent_sub: "(Penjaga)", teacher_sub: "(Pendidik)", admin_sub: "(Pengurusan)",
+                qr_title: "Imbas Kehadiran (QR Code)", qr_status: "Sedia untuk Check-in / Out",
+                sim_in: "Simulasi Check-In", sim_out: "Simulasi Check-Out",
+                nav_home: "Utama", nav_student: "Pelajar", nav_parent: "Ibu Bapa", nav_teacher: "Cikgu", nav_admin: "Admin",
+                zone_title: "Zon Belajar Syok! 🚀", streak: "Streak: 5 Hari",
+                sub_bm: "Bahasa Malaysia", sub_en: "English", sub_math: "Mathematics", sub_sci: "Science", sub_is: "Islamic Ed.", sub_art: "Arts & Craft",
+                flash_tag: "Flashcard Aktiviti", quiz_prompt: "Uji Minda: Pilih jawapan betul!",
+                reward_title: "Ganjaran & Lencana Saya", badge_p: "Pintar", badge_b: "Baik Hati", badge_l: "Laju (Kunci)", badge_j: "Juara (Kunci)",
+                parent_class: "Tadika Pintar (4 Cerdik)", stat_attendance: "Kehadiran", stat_performance: "Purata Prestasi", stat_fees: "Tunggakan",
+                chart_title: "Prestasi Pembelajaran Bulanan", teacher_msg_title: "Mesej Cikgu Sofia",
+                teacher_comment: '"Adam sangat aktif hari ini dalam kelas sains, dia berjaya menjawab semua kuiz berkenaan haiwan!"',
+                input_reply: "Balas mesej cikgu...", wallet_title: "Kewangan & Acara", bill_title: "Yuran Bulanan Julai 2026", bill_status: "Lunas",
+                event_title: "Hari Sukan Tadika", event_date: "Tarikh: 15 Julai 2026",
+                teacher_header: "Ruangan Pendidik 👩‍🏫", take_attendance: "Ambil Kehadiran Hari Ini", btn_present: "Hadir", btn_absent: "Absen",
+                btn_submit_attendance: "Sahkan Kehadiran", upload_homework: "Muat Naik Kerja Rumah / Aktiviti", lbl_act_title: "Tajuk Aktiviti:",
+                input_act_title: "Contoh: Mewarna Gambar Rama-rama", lbl_choose_sub: "Pilih Subjek:", upload_desc: "Klik untuk tangkap gambar atau lampir fail gambar kelas",
+                btn_share_activity: "Kongsi Kepada Penjaga", admin_header: "Sistem Pengurusan Admin 🏛️", total_students: "Jumlah Pelajar",
+                total_teachers: "Guru Berdaftar", admin_actions: "Tindakan Pantas Admin", adm_act_1: "Pendaftaran Pelajar Baru",
+                adm_act_2: "Penjanaan Invois Yuran Bulanan", adm_act_3: "Laporan Log Keselamatan & QR", adm_act_4: "Senarai Pelajar Berdaftar",
+                alert_in: "Adam Malik telah berjaya melakukan Check-In pada ", alert_out: "Adam Malik telah berjaya melakukan Check-Out pada ",
+                alert_msg_sent: "Mesej dihantar!", alert_quiz_ok: "🎉 PANDAI! Jawapan betul. Anda dapat +5 Bintang!", alert_quiz_fail: "❌ Alamak, cuba lagi sayang! Tekan butang yang satu lagi.",
+                alert_audio: "🔊 Memainkan suara sebutan: ", alert_attendance_saved: "Kehadiran berjaya disimpan dan notifikasi dihantar ke ibu bapa!",
+                alert_shared: "Berjaya dikongsi ke feed Ibu Bapa!", alert_admin_1: "Borang tambah pelajar baru dibuka", alert_admin_2: "Sistem yuran automatik diaktifkan", alert_admin_3: "Log keselamatan dijana",
+                modal_reg_title: " Borang Pendaftaran Baru", modal_list_title: " Senarai Pelajar Berdaftar", lbl_form_name: "Nama Penuh Pelajar:", lbl_form_age: "Umur (Tahun):", lbl_form_relation: "Hubungan Penjaga:",
+                lbl_form_pname: "Nama Penuh Penjaga:", lbl_form_phone: "No. Telefon Bimbit:", btn_form_cancel: "Batal", btn_form_submit: "Daftar Sekarang", btn_list_close: "Tutup",
+                success_reg: " Berjaya mendaftarkan pelajar: ", guardian_lbl: "Penjaga",
+                modal_details_title: "Butiran Lengkap Pelajar", det_lbl_name: "Nama Pelajar", det_lbl_age: "Umur", det_lbl_relation: "Hubungan", det_lbl_pname: "Nama Penjaga", det_lbl_phone: "No. Telefon Penjaga", btn_details_back: "Kembali", click_hint: "Tip: Klik pada nama pelajar untuk melihat butiran lengkap."
+            },
+            en: {
+                welcome: "Welcome! 👋",
+                student: "Student", parent: "Parent", teacher: "Teacher", admin: "Admin",
+                student_sub: "(4-12 Years)", parent_sub: "(Guardian)", teacher_sub: "(Educator)", admin_sub: "(Management)",
+                qr_title: "Scan Attendance (QR Code)", qr_status: "Ready for Check-in / Out",
+                sim_in: "Simulate Check-In", sim_out: "Simulate Check-Out",
+                nav_home: "Home", nav_student: "Student", nav_parent: "Parent", nav_teacher: "Teacher", nav_admin: "Admin",
+                zone_title: "Fun Learning Zone! 🚀", streak: "Streak: 5 Days",
+                sub_bm: "Malay Language", sub_en: "English", sub_math: "Mathematics", sub_sci: "Science", sub_is: "Islamic Ed.", sub_art: "Arts & Craft",
+                flash_tag: "Activity Flashcard", quiz_prompt: "Brain Teaser: Choose the correct answer!",
+                reward_title: "My Rewards & Badges", badge_p: "Smart", badge_b: "Kind Heart", badge_l: "Fast (Locked)", badge_j: "Champion (Locked)",
+                parent_class: "Smart Kindergarten (4 Cerdik)", stat_attendance: "Attendance", stat_performance: "Avg Performance", stat_fees: "Outstanding",
+                chart_title: "Monthly Learning Performance", teacher_msg_title: "Message from Teacher Sofia",
+                teacher_comment: '"Adam was very active in science class today, he successfully answered all animal quizzes!"',
+                input_reply: "Reply to teacher...", wallet_title: "Finance & Events", bill_title: "July 2026 Monthly Fees", bill_status: "Paid",
+                event_title: "Kindergarten Sports Day", event_date: "Date: July 15, 2026",
+                teacher_header: "Educator Corner 👩‍🏫", take_attendance: "Take Attendance Today", btn_present: "Present", btn_absent: "Absent",
+                btn_submit_attendance: "Confirm Attendance", upload_homework: "Upload Homework / Activity", lbl_act_title: "Activity Title:",
+                input_act_title: "Example: Coloring Butterfly Picture", lbl_choose_sub: "Select Subject:", upload_desc: "Click to capture image or attach classroom photo file",
+                btn_share_activity: "Share with Guardians", admin_header: "Admin Management System 🏛️", total_students: "Total Students",
+                total_teachers: "Registered Teachers", admin_actions: "Admin Quick Actions", adm_act_1: "New Student Registration",
+                adm_act_2: "Generate Monthly Fee Invoice", adm_act_3: "Security Log & QR Report", adm_act_4: "Registered Student List",
+                alert_in: "Adam Malik successfully Checked-In at ", alert_out: "Adam Malik successfully Checked-Out at ",
+                alert_msg_sent: "Message sent!", alert_quiz_ok: "🎉 SMART! Correct answer. You got +5 Stars!", alert_quiz_fail: "❌ Oops, try again dear! Press the other button.",
+                alert_audio: "🔊 Playing pronunciation audio: ", alert_attendance_saved: "Attendance saved successfully and notifications sent to parents!",
+                alert_shared: "Successfully shared to Parent's feed!", alert_admin_1: "Opening new student registration form", alert_admin_2: "Automatic fee settings activated", alert_admin_3: "Security log report generated",
+                modal_reg_title: " New Student Registration Form", modal_list_title: " Registered Student List", lbl_form_name: "Student Full Name:", lbl_form_age: "Age (Years):", lbl_form_relation: "Guardian Relationship:",
+                lbl_form_pname: "Guardian Full Name:", lbl_form_phone: "Mobile Phone No:", btn_form_cancel: "Cancel", btn_form_submit: "Register Now", btn_list_close: "Close",
+                success_reg: " Successfully registered student: ", guardian_lbl: "Guardian",
+                modal_details_title: "Student Complete Details", det_lbl_name: "Student Name", det_lbl_age: "Age", det_lbl_relation: "Relationship", det_lbl_pname: "Guardian Name", det_lbl_phone: "Guardian Phone No", btn_details_back: "Back", click_hint: "Tip: Click on student's name to view full details."
+            }
+        };
+
+        let currentLang = 'ms';
+        let selectedFileName = ""; 
+        let totalStudentsCount = 42;
+
+        // Pangkalan data simulasi dengan penambahan No Telefon untuk butiran lengkap
+        let studentsList = [
+            { name: "Adam Malik", age: 5, relation: "Bapa", parentName: "Ahmad Bin Yusof", phone: "012-3456789" },
+            { name: "Zara Aisya", age: 6, relation: "Ibu", parentName: "Siti Aminah", phone: "019-8765432" },
+            { name: "Muhammad Ali", age: 5, relation: "Bapa", parentName: "Yusof Kassim", phone: "011-1234567" }
+        ];
+
+        function handleFileSelect(input) {
+            if (input.files && input.files[0]) {
+                selectedFileName = input.files[0].name;
+                document.getElementById('txt-upload-desc').innerHTML = `<span class="text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> ${selectedFileName}</span>`;
+            }
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            if(lang === 'ms') {
+                document.getElementById('lang-ms').className = "bg-white text-amber-500 px-2.5 py-1 rounded-full border-2 border-white cursor-pointer font-bold";
+                document.getElementById('lang-en').className = "bg-amber-500 text-white px-2.5 py-1 rounded-full border-2 border-amber-500 cursor-pointer font-bold";
+            } else {
+                document.getElementById('lang-en').className = "bg-white text-amber-500 px-2.5 py-1 rounded-full border-2 border-white cursor-pointer font-bold";
+                document.getElementById('lang-ms').className = "bg-amber-500 text-white px-2.5 py-1 rounded-full border-2 border-amber-500 cursor-pointer font-bold";
+            }
+
+            document.getElementById('txt-welcome').innerHTML = translations[lang].welcome;
+            document.getElementById('lbl-student').innerText = translations[lang].student;
+            document.getElementById('lbl-student-sub').innerText = translations[lang].student_sub;
+            document.getElementById('lbl-parent').innerText = translations[lang].parent;
+            document.getElementById('lbl-parent-sub').innerText = translations[lang].parent_sub;
+            document.getElementById('lbl-teacher').innerText = translations[lang].teacher;
+            document.getElementById('lbl-teacher-sub').innerText = translations[lang].teacher_sub;
+            document.getElementById('lbl-admin').innerText = translations[lang].admin;
+            document.getElementById('lbl-admin-sub').innerText = translations[lang].admin_sub;
+            
+            document.getElementById('txt-qr-title').innerText = translations[lang].qr_title;
+            document.getElementById('txt-qr-status').innerText = translations[lang].qr_status;
+            document.getElementById('btn-sim-in').innerText = translations[lang].sim_in;
+            document.getElementById('btn-sim-out').innerText = translations[lang].sim_out;
+
+            document.getElementById('nav-txt-home').innerText = translations[lang].nav_home;
+            document.getElementById('nav-txt-student').innerText = translations[lang].nav_student;
+            document.getElementById('nav-txt-parent').innerText = translations[lang].nav_parent;
+            document.getElementById('nav-txt-teacher').innerText = translations[lang].nav_teacher;
+            document.getElementById('nav-txt-admin').innerText = translations[lang].nav_admin;
+
+            document.getElementById('txt-zone-title').innerText = translations[lang].zone_title;
+            document.getElementById('txt-streak').innerText = translations[lang].streak;
+            document.getElementById('sub-bm').innerText = translations[lang].sub_bm;
+            document.getElementById('sub-en').innerText = translations[lang].sub_en;
+            document.getElementById('sub-math').innerText = translations[lang].sub_math;
+            document.getElementById('sub-sci').innerText = translations[lang].sub_sci;
+            document.getElementById('sub-is').innerText = translations[lang].sub_is;
+            document.getElementById('sub-art').innerText = translations[lang].sub_art;
+
+            document.getElementById('txt-flash-tag').innerText = translations[lang].flash_tag;
+            document.getElementById('txt-quiz-prompt').innerText = translations[lang].quiz_prompt;
+            document.getElementById('txt-reward-title').innerText = translations[lang].reward_title;
+            document.getElementById('badge-p').innerText = translations[lang].badge_p;
+            document.getElementById('badge-b').innerText = translations[lang].badge_b;
+            document.getElementById('badge-l').innerText = translations[lang].badge_l;
+            document.getElementById('badge-j').innerText = translations[lang].badge_j;
+
+            document.getElementById('txt-parent-class').innerText = translations[lang].parent_class;
+            document.getElementById('stat-attendance').innerText = translations[lang].stat_attendance;
+            document.getElementById('stat-performance').innerText = translations[lang].stat_performance;
+            document.getElementById('stat-fees').innerText = translations[lang].stat_fees;
+            document.getElementById('txt-chart-title').innerText = translations[lang].chart_title;
+            document.getElementById('txt-teacher-msg-title').innerText = translations[lang].teacher_msg_title;
+            document.getElementById('txt-teacher-comment').innerText = translations[lang].teacher_comment;
+            document.getElementById('input-reply').placeholder = translations[lang].input_reply;
+            document.getElementById('txt-wallet-title').innerText = translations[lang].wallet_title;
+            document.getElementById('txt-bill-title').innerText = translations[lang].bill_title;
+            document.getElementById('txt-bill-status').innerText = translations[lang].bill_status;
+            document.getElementById('txt-event-title').innerText = translations[lang].event_title;
+            document.getElementById('txt-event-date').innerText = translations[lang].event_date;
+
+            document.getElementById('txt-teacher-header').innerText = translations[lang].teacher_header;
+            document.getElementById('txt-take-attendance').innerText = translations[lang].take_attendance;
+            document.querySelectorAll('.btn-present').forEach(el => el.innerText = translations[lang].btn_present);
+            document.querySelectorAll('.btn-absent').forEach(el => el.innerText = translations[lang].btn_absent);
+            document.getElementById('btn-submit-attendance').innerText = translations[lang].btn_submit_attendance;
+            document.getElementById('txt-upload-homework').innerText = translations[lang].upload_homework;
+            document.getElementById('lbl-act-title').innerText = translations[lang].lbl_act_title;
+            document.getElementById('input-act-title').placeholder = translations[lang].input_act_title;
+            document.getElementById('lbl-choose-sub').innerText = translations[lang].lbl_choose_sub;
+            
+            if (!selectedFileName) {
+                document.getElementById('txt-upload-desc').innerText = translations[lang].upload_desc;
+            }
+            
+            document.getElementById('btn-share-activity').innerText = translations[lang].btn_share_activity;
+
+            document.getElementById('txt-admin-header').innerText = translations[lang].admin_header;
+            document.getElementById('txt-total-students').innerText = translations[lang].total_students;
+            document.getElementById('txt-total-teachers').innerText = translations[lang].total_teachers;
+            document.getElementById('txt-admin-actions').innerText = translations[lang].admin_actions;
+            document.getElementById('adm-act-1').innerText = translations[lang].adm_act_1;
+            document.getElementById('adm-act-2').innerText = translations[lang].adm_act_2;
+            document.getElementById('adm-act-3').innerText = translations[lang].adm_act_3;
+            document.getElementById('adm-act-4').innerText = translations[lang].adm_act_4;
+
+            document.getElementById('modal-registration').querySelector('h3').innerHTML = `<i class="fas fa-user-plus mr-1"></i> ${translations[lang].modal_reg_title}`;
+            document.getElementById('lbl-form-name').innerText = translations[lang].lbl_form_name;
+            document.getElementById('lbl-form-age').innerText = translations[lang].lbl_form_age;
+            document.getElementById('lbl-form-relation').innerText = translations[lang].lbl_form_relation;
+            document.getElementById('lbl-form-pname').innerText = translations[lang].lbl_form_pname;
+            document.getElementById('lbl-form-phone').innerText = translations[lang].lbl_form_phone;
+            document.getElementById('btn-form-cancel').innerText = translations[lang].btn_form_cancel;
+            document.getElementById('btn-form-submit').innerText = translations[lang].btn_form_submit;
+
+            document.getElementById('modal-student-list').querySelector('h3').innerHTML = `<i class="fas fa-list mr-1"></i> ${translations[lang].modal_list_title}`;
+            document.getElementById('btn-list-close').innerText = translations[lang].btn_list_close;
+            document.getElementById('txt-click-hint').innerText = translations[lang].click_hint;
+
+            // Kemas kini Terjemahan Modal Butiran Lengkap Pelajar
+            document.getElementById('modal-details-title').innerText = translations[lang].modal_details_title;
+            document.getElementById('det-lbl-name').innerText = translations[lang].det_lbl_name;
+            document.getElementById('det-lbl-age').innerText = translations[lang].det_lbl_age;
+            document.getElementById('det-lbl-relation').innerText = translations[lang].det_lbl_relation;
+            document.getElementById('det-lbl-pname').innerText = translations[lang].det_lbl_pname;
+            document.getElementById('det-lbl-phone').innerText = translations[lang].det_lbl_phone;
+            document.getElementById('btn-details-back').innerText = translations[lang].btn_details_back;
+
+            if(lang === 'en') {
+                document.getElementById('btn-quiz-opt1').innerText = "🍎 Apple";
+                document.getElementById('btn-quiz-opt2').innerText = "🍌 Banana";
+            } else {
+                document.getElementById('btn-quiz-opt1').innerText = "🍎 Epal";
+                document.getElementById('btn-quiz-opt2').innerText = "🍌 Pisang";
+            }
+            
+            if(!document.getElementById('view-parent').classList.contains('hidden')) {
+                renderParentChart();
+            }
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById('view-' + viewId).classList.remove('hidden');
+
+            const navIds = ['home', 'student', 'parent', 'teacher', 'admin'];
+            navIds.forEach(id => {
+                const btn = document.getElementById('nav-' + id);
+                if (id === viewId) {
+                    btn.classList.remove('text-slate-400');
+                    btn.classList.add('text-amber-500', 'scale-110');
+                } else {
+                    btn.classList.remove('text-amber-500', 'scale-110');
+                    btn.classList.add('text-slate-400');
+                }
+            });
+            
+            if (viewId === 'parent') {
+                setTimeout(renderParentChart, 100);
+            }
+        }
+
+        const subjectData = {
+            ms: {
+                'Bahasa Malaysia': { word: 'EPAL', desc: '"A - A - Ayam, E - E - Epal!"' },
+                'English': { word: 'CAT', desc: '"C - A - T bunyinya Meow!"' },
+                'Mathematics': { word: '1 + 2 = 3', desc: '"Kira jari: Satu tambah Dua jadi Tiga!"' },
+                'Science': { word: 'AIR', desc: '"Hujan membekalkan air bersih untuk pokok."' },
+                'Pendidikan Islam': { word: 'ALIF', desc: '"Alif, Ba, Ta... Jom mengaji bersama!"' },
+                'Kreativiti & Seni': { word: 'LUKIS', desc: '"Mari campur warna merah dan kuning!"' }
+            },
+            en: {
+                'Bahasa Malaysia': { word: 'EPAL', desc: '"A for Apple, E for Epal!"' },
+                'English': { word: 'CAT', desc: '"C - A - T spells Meow!"' },
+                'Mathematics': { word: '1 + 2 = 3', desc: '"Count fingers: One plus Two equals Three!"' },
+                'Science': { word: 'WATER', desc: '"Rain provides clean water for plants."' },
+                'Pendidikan Islam': { word: 'ALIF', desc: '"Alif, Ba, Ta... Let\'s recite together!"' },
+                'Kreativiti & Seni': { word: 'DRAW', desc: '"Let\'s mix red and yellow colors!"' }
+            }
+        };
+
+        function openSubject(subject) {
+            let activeSubjectDisplay = subject;
+            if(currentLang === 'en') {
+                if(subject === 'Bahasa Malaysia') activeSubjectDisplay = "Malay Language";
+                if(subject === 'Pendidikan Islam') activeSubjectDisplay = "Islamic Ed.";
+                if(subject === 'Kreativiti & Seni') activeSubjectDisplay = "Arts & Craft";
+            }
+            
+            document.getElementById('active-subject-title').innerText = activeSubjectDisplay;
+            document.getElementById('flashcard-word').innerText = subjectData[currentLang][subject].word;
+            document.getElementById('flashcard-desc').innerText = subjectData[currentLang][subject].desc;
+            
+            document.getElementById('learning-box').classList.remove('hidden');
+            document.getElementById('learning-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeLearningBox() {
+            document.getElementById('learning-box').classList.add('hidden');
+        }
+
+        function playAudio() {
+            alert(translations[currentLang].alert_audio + document.getElementById('flashcard-word').innerText);
+        }
+
+        function answerQuiz(isCorrect) {
+            if(isCorrect) {
+                alert(translations[currentLang].alert_quiz_ok);
+                let currentStars = parseInt(document.getElementById('top-stars').innerText);
+                document.getElementById('top-stars').innerText = currentStars + 5;
+            } else {
+                alert(translations[currentLang].alert_quiz_fail);
+            }
+        }
+
+        function triggerAttendance(type) {
+            let prefix = type === 'Check-In' ? translations[currentLang].alert_in : translations[currentLang].alert_out;
+            alert(`📲 [NOTIFIKASI IBU BAPA]\n\nClever Edukids: ${prefix}${new Date().toLocaleTimeString('ms-MY')}.`);
+        }
+
+        function sendParentMessage() {
+            alert(translations[currentLang].alert_msg_sent);
+            document.getElementById('input-reply').value = "";
+        }
+
+        function submitAttendance() {
+            alert(translations[currentLang].alert_attendance_saved);
+        }
+
+        function shareActivity() {
+            alert(translations[currentLang].alert_shared);
+            document.getElementById('input-act-title').value = "";
+            document.getElementById('homework-file-input').value = ""; 
+            selectedFileName = "";
+            document.getElementById('txt-upload-desc').innerText = translations[currentLang].upload_desc;
+        }
+
+        function adminAction(type) {
+            if (type === 1) {
+                document.getElementById('modal-registration').classList.remove('hidden');
+            } else if (type === 4) {
+                openStudentListModal();
+            } else {
+                alert(translations[currentLang]['alert_admin_' + type]);
+            }
+        }
+
+        function closeRegistrationModal() {
+            document.getElementById('modal-registration').classList.add('hidden');
+            document.getElementById('form-new-student').reset();
+        }
+
+        function submitNewStudent(event) {
+            event.preventDefault();
+            const studentName = document.getElementById('reg-student-name').value;
+            const studentAge = document.getElementById('reg-student-age').value;
+            const parentRelation = document.getElementById('reg-parent-relation').value;
+            const parentName = document.getElementById('reg-parent-name').value;
+            const parentPhone = document.getElementById('reg-parent-phone').value;
+            
+            studentsList.push({
+                name: studentName,
+                age: studentAge,
+                relation: parentRelation,
+                parentName: parentName,
+                phone: parentPhone
+            });
+
+            totalStudentsCount++;
+            document.getElementById('num-total-students').innerText = totalStudentsCount;
+            
+            alert(`🎉 ${translations[currentLang].success_reg}${studentName}!`);
+            closeRegistrationModal();
+        }
+
+        function openStudentListModal() {
+            document.getElementById('modal-student-list').classList.remove('hidden');
+            renderStudentList();
+        }
+
+        function closeStudentListModal() {
+            document.getElementById('modal-student-list').classList.add('hidden');
+        }
+
+        // Papar Modal Butiran Pelajar secara terperinci
+        function showStudentDetails(index) {
+            const student = studentsList[index];
+            if (!student) return;
+
+            document.getElementById('det-student-name').innerText = student.name;
+            document.getElementById('det-student-age').innerText = `${student.age} ${currentLang === 'ms' ? 'Tahun' : 'Years Old'}`;
+            document.getElementById('det-parent-relation').innerText = student.relation;
+            document.getElementById('det-parent-name').innerText = student.parentName;
+            document.getElementById('det-parent-phone').innerText = student.phone;
+
+            document.getElementById('modal-student-details').classList.remove('hidden');
+        }
+
+        function closeStudentDetailsModal() {
+            document.getElementById('modal-student-details').classList.add('hidden');
+        }
+
+        function renderStudentList() {
+            const container = document.getElementById('student-list-container');
+            container.innerHTML = "";
+            
+            studentsList.forEach((student, index) => {
+                const item = document.createElement('div');
+                // Menambah 'cursor-pointer hover:bg-emerald-50 transition' supaya interaktif apabila disentuh atau klik
+                item.className = "p-2.5 bg-slate-50 hover:bg-emerald-50 rounded-lg border border-slate-100 flex justify-between items-center cursor-pointer transition transform active:scale-98 shadow-xs";
+                item.setAttribute('onclick', `showStudentDetails(${index})`);
+                item.innerHTML = `
+                    <div class="flex-1">
+                        <p class="font-bold text-slate-700 text-sm flex items-center justify-between">
+                            <span>${index + 1}. ${student.name}</span>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-1.5 py-0.5 rounded-full">${student.age} Thn</span>
+                        </p>
+                        <p class="text-[10px] text-slate-400 mt-1"><i class="fas fa-user text-slate-400 mr-1"></i> ${translations[currentLang].guardian_lbl}: ${student.parentName} (${student.relation})</p>
+                    </div>
+                    <div class="text-emerald-500 pl-2">
+                        <i class="fas fa-chevron-right text-xs"></i>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleAttendanceBtn(btn) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('button').forEach(b => {
+                b.className = b.classList.contains('btn-present') ? "bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-present" : "bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-absent";
+            });
+            if(btn.classList.contains('btn-present')) {
+                btn.className = "bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] btn-present";
+            } else {
+                btn.className = "bg-rose-500 text-white px-2 py-0.5 rounded text-[10px] btn-absent";
+            }
+        }
+
+        let chartInstance = null;
+        function renderParentChart() {
+            const ctx = document.getElementById('parentChart');
+            if (!ctx) return;
+            
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            let chartLabels = currentLang === 'ms' ? ['B.Melayu', 'English', 'Maths', 'Sains', 'Agama', 'Seni'] : ['Malay', 'English', 'Maths', 'Science', 'Islamic', 'Arts'];
+            let datasetLabel = currentLang === 'ms' ? 'Markah Aktiviti (%)' : 'Activity Scores (%)';
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: datasetLabel,
+                        data: [90, 85, 78, 92, 95, 88],
+                        backgroundColor: [
+                            'rgba(244, 63, 94, 0.6)',
+                            'rgba(14, 165, 233, 0.6)',
+                            'rgba(245, 158, 11, 0.6)',
+                            'rgba(16, 185, 129, 0.6)',
+                            'rgba(99, 102, 241, 0.6)',
+                            'rgba(168, 85, 247, 0.6)'
+                        ],
+                        borderWidth: 0,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, max: 100 }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+index.html
+Displaying index.html.
