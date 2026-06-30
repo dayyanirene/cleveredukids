@@ -264,7 +264,9 @@
                         <option value="SCI">Science</option>
                     </select>
 
-                    <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center cursor-pointer hover:bg-slate-50">
+                    <input type="file" id="homework-file-input" accept="image/*" class="hidden" onchange="handleFileSelect(this)">
+                    
+                    <div onclick="document.getElementById('homework-file-input').click()" class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center cursor-pointer hover:bg-slate-50 transition">
                         <i class="fas fa-images text-xl text-slate-400 mb-1"></i>
                         <p id="txt-upload-desc" class="text-[10px] text-slate-500">Klik untuk tangkap gambar atau lampir fail gambar kelas</p>
                     </div>
@@ -331,7 +333,6 @@
     </nav>
 
     <script>
-        // Data Kamus Bahasa (Localization Dictionary)
         const translations = {
             ms: {
                 welcome: "Selamat Datang! 👋",
@@ -390,12 +391,19 @@
         };
 
         let currentLang = 'ms';
+        let selectedFileName = ""; 
 
-        // Fungsi Penukaran Bahasa Dinamik
+        // Menguruskan fail yang dipilih/ditangkap oleh kamera
+        function handleFileSelect(input) {
+            if (input.files && input.files[0]) {
+                selectedFileName = input.files[0].name;
+                document.getElementById('txt-upload-desc').innerHTML = `<span class="text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> ${selectedFileName}</span>`;
+            }
+        }
+
         function changeLanguage(lang) {
             currentLang = lang;
             
-            // Kemaskini Visual Butang Bahasa
             if(lang === 'ms') {
                 document.getElementById('lang-ms').className = "bg-white text-amber-500 px-2.5 py-1 rounded-full border-2 border-white cursor-pointer font-bold";
                 document.getElementById('lang-en').className = "bg-amber-500 text-white px-2.5 py-1 rounded-full border-2 border-amber-500 cursor-pointer font-bold";
@@ -404,7 +412,6 @@
                 document.getElementById('lang-ms').className = "bg-amber-500 text-white px-2.5 py-1 rounded-full border-2 border-amber-500 cursor-pointer font-bold";
             }
 
-            // Kemaskini Teks DOM Berdasarkan Kamus Bahasa
             document.getElementById('txt-welcome').innerHTML = translations[lang].welcome;
             document.getElementById('lbl-student').innerText = translations[lang].student;
             document.getElementById('lbl-student-sub').innerText = translations[lang].student_sub;
@@ -466,7 +473,12 @@
             document.getElementById('lbl-act-title').innerText = translations[lang].lbl_act_title;
             document.getElementById('input-act-title').placeholder = translations[lang].input_act_title;
             document.getElementById('lbl-choose-sub').innerText = translations[lang].lbl_choose_sub;
-            document.getElementById('txt-upload-desc').innerText = translations[lang].upload_desc;
+            
+            // Jikalau tiada fail dipilih, tukar teks mengikut bahasa asal
+            if (!selectedFileName) {
+                document.getElementById('txt-upload-desc').innerText = translations[lang].upload_desc;
+            }
+            
             document.getElementById('btn-share-activity').innerText = translations[lang].btn_share_activity;
 
             document.getElementById('txt-admin-header').innerText = translations[lang].admin_header;
@@ -477,7 +489,6 @@
             document.getElementById('adm-act-2').innerText = translations[lang].adm_act_2;
             document.getElementById('adm-act-3').innerText = translations[lang].adm_act_3;
 
-            // Kemaskini Pilihan Kuiz Mengikut Bahasa
             if(lang === 'en') {
                 document.getElementById('btn-quiz-opt1').innerText = "🍎 Apple";
                 document.getElementById('btn-quiz-opt2').innerText = "🍌 Banana";
@@ -486,13 +497,11 @@
                 document.getElementById('btn-quiz-opt2').innerText = "🍌 Pisang";
             }
             
-            // Kemaskini Semula Label Graf Jikalau Graf Aktif
             if(!document.getElementById('view-parent').classList.contains('hidden')) {
                 renderParentChart();
             }
         }
 
-        // Navigation Controller
         function switchView(viewId) {
             document.querySelectorAll('.view-section').forEach(section => {
                 section.classList.add('hidden');
@@ -516,7 +525,6 @@
             }
         }
 
-        // Sandbox Learning Module Data
         const subjectData = {
             ms: {
                 'Bahasa Malaysia': { word: 'EPAL', desc: '"A - A - Ayam, E - E - Epal!"' },
@@ -570,7 +578,6 @@
             }
         }
 
-        // Interaksi Simulasi & Makluman
         function triggerAttendance(type) {
             let prefix = type === 'Check-In' ? translations[currentLang].alert_in : translations[currentLang].alert_out;
             alert(`📲 [NOTIFIKASI IBU BAPA]\n\nClever Edukids: ${prefix}${new Date().toLocaleTimeString('ms-MY')}.`);
@@ -588,6 +595,9 @@
         function shareActivity() {
             alert(translations[currentLang].alert_shared);
             document.getElementById('input-act-title').value = "";
+            document.getElementById('homework-file-input').value = ""; 
+            selectedFileName = "";
+            document.getElementById('txt-upload-desc').innerText = translations[currentLang].upload_desc;
         }
 
         function adminAction(type) {
@@ -606,7 +616,6 @@
             }
         }
 
-        // Render Graf Pembelajaran (Chart.js)
         let chartInstance = null;
         function renderParentChart() {
             const ctx = document.getElementById('parentChart');
