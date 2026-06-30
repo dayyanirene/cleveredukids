@@ -231,8 +231,22 @@
                     <h4 class="font-bold text-xs text-slate-700"><i class="fas fa-clipboard-user text-emerald-500 mr-1"></i> <span id="txt-take-attendance">Ambil Kehadiran Hari Ini</span></h4>
                     <span class="text-[10px] text-slate-400">Kelas: 4 Cerdik</span>
                 </div>
-                <div id="attendance-student-list" class="space-y-2 text-xs max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between items-center p-1 bg-slate-50 rounded">
+                        <span>1. Adam Malik</span>
+                        <div class="flex gap-1">
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] btn-present">Hadir</button>
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-absent">Absen</button>
+                        </div>
                     </div>
+                    <div class="flex justify-between items-center p-1 bg-slate-50 rounded">
+                        <span>2. Zara Aisya</span>
+                        <div class="flex gap-1">
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] btn-present">Hadir</button>
+                            <button onclick="toggleAttendanceBtn(this)" class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] btn-absent">Absen</button>
+                        </div>
+                    </div>
+                </div>
                 <button onclick="submitAttendance()" id="btn-submit-attendance" class="w-full bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs shadow active:scale-95 cursor-pointer">Sahkan Kehadiran</button>
             </div>
 
@@ -267,7 +281,7 @@
             
             <div class="grid grid-cols-2 gap-2 text-center text-xs">
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-sky-400">
-                    <span id="num-total-students" class="block font-bold text-lg text-slate-800">42</span>
+                    <span id="num-total-students" class="block font-bold text-lg text-slate-800">0</span>
                     <span id="txt-total-students" class="text-slate-500 text-[10px]">Jumlah Pelajar</span>
                 </div>
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-emerald-400">
@@ -280,6 +294,10 @@
                 <h4 id="txt-admin-actions" class="font-bold text-slate-700 mb-2 border-b pb-1">Tindakan Pantas Admin</h4>
                 <button onclick="adminAction(1)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
                     <span><i class="fas fa-user-plus text-sky-500 mr-2"></i> <span id="adm-act-1">Pendaftaran Pelajar Baru</span></span>
+                    <i class="fas fa-chevron-right text-slate-400"></i>
+                </button>
+                <button onclick="adminAction(4)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
+                    <span><i class="fas fa-list text-emerald-500 mr-2"></i> <span id="adm-act-4">Senarai Pelajar Berdaftar</span></span>
                     <i class="fas fa-chevron-right text-slate-400"></i>
                 </button>
                 <button onclick="adminAction(2)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
@@ -336,81 +354,5 @@
         </div>
     </div>
 
-    <nav class="bg-white border-t border-slate-200 fixed bottom-0 inset-x-0 h-16 flex justify-around items-center px-2 shadow-inner z-20">
-        <button onclick="switchView('home')" id="nav-home" class="flex flex-col items-center justify-center text-amber-500 font-bold transition-all transform scale-110 cursor-pointer">
-            <i class="fas fa-home text-xl"></i>
-            <span id="nav-txt-home" class="text-[10px] font-medium mt-0.5">Utama</span>
-        </button>
-        <button onclick="switchView('student')" id="nav-student" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
-            <i class="fas fa-child text-xl"></i>
-            <span id="nav-txt-student" class="text-[10px] font-medium mt-0.5">Pelajar</span>
-        </button>
-        <button onclick="switchView('parent')" id="nav-parent" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
-            <i class="fas fa-heart text-xl"></i>
-            <span id="nav-txt-parent" class="text-[10px] font-medium mt-0.5">Ibu Bapa</span>
-        </button>
-        <button onclick="switchView('teacher')" id="nav-teacher" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
-            <i class="fas fa-graduation-cap text-xl"></i>
-            <span id="nav-txt-teacher" class="text-[10px] font-medium mt-0.5">Cikgu</span>
-        </button>
-        <button onclick="switchView('admin')" id="nav-admin" class="flex flex-col items-center justify-center text-slate-400 font-bold transition-all cursor-pointer">
-            <i class="fas fa-lock text-xl"></i>
-            <span id="nav-txt-admin" class="text-[10px] font-medium mt-0.5">Admin</span>
-        </button>
-    </nav>
-
-    <script>
-        const translations = {
-            ms: {
-                welcome: "Selamat Datang! 👋",
-                student: "Pelajar", parent: "Ibu Bapa", teacher: "Cikgu", admin: "Admin",
-                student_sub: "(4-12 Tahun)", parent_sub: "(Penjaga)", teacher_sub: "(Pendidik)", admin_sub: "(Pengurusan)",
-                qr_title: "Imbas Kehadiran (QR Code)", qr_status: "Sedia untuk Check-in / Out",
-                sim_in: "Simulasi Check-In", sim_out: "Simulasi Check-Out",
-                nav_home: "Utama", nav_student: "Pelajar", nav_parent: "Ibu Bapa", nav_teacher: "Cikgu", nav_admin: "Admin",
-                zone_title: "Zon Belajar Syok! 🚀", streak: "Streak: 5 Hari",
-                sub_bm: "Bahasa Malaysia", sub_en: "English", sub_math: "Mathematics", sub_sci: "Science", sub_is: "Islamic Ed.", sub_art: "Arts & Craft",
-                flash_tag: "Flashcard Aktiviti", quiz_prompt: "Uji Minda: Pilih jawapan betul!",
-                reward_title: "Ganjaran & Lencana Saya", badge_p: "Pintar", badge_b: "Baik Hati", badge_l: "Laju (Kunci)", badge_j: "Juara (Kunci)",
-                parent_class: "Tadika Pintar (4 Cerdik)", stat_attendance: "Kehadiran", stat_performance: "Purata Prestasi", stat_fees: "Tunggakan",
-                chart_title: "Prestasi Pembelajaran Bulanan", teacher_msg_title: "Mesej Cikgu Sofia",
-                teacher_comment: '"Adam sangat aktif hari ini dalam kelas sains, dia berjaya menjawab semua kuiz berkenaan haiwan!"',
-                input_reply: "Balas mesej cikgu...", wallet_title: "Kewangan & Acara", bill_title: "Yuran Bulanan Julai 2026", bill_status: "Lunas",
-                event_title: "Hari Sukan Tadika", event_date: "Tarikh: 15 Julai 2026",
-                teacher_header: "Ruangan Pendidik 👩‍🏫", take_attendance: "Ambil Kehadiran Hari Ini", btn_present: "Hadir", btn_absent: "Absen",
-                btn_submit_attendance: "Sahkan Kehadiran", upload_homework: "Muat Naik Kerja Rumah / Aktiviti", lbl_act_title: "Tajuk Aktiviti:",
-                input_act_title: "Contoh: Mewarna Gambar Rama-rama", lbl_choose_sub: "Pilih Subjek:", upload_desc: "Klik untuk tangkap gambar atau lampir fail gambar kelas",
-                btn_share_activity: "Kongsi Kepada Penjaga", admin_header: "Sistem Pengurusan Admin 🏛️", total_students: "Jumlah Pelajar",
-                total_teachers: "Guru Berdaftar", admin_actions: "Tindakan Pantas Admin", adm_act_1: "Pendaftaran Pelajar Baru",
-                adm_act_2: "Penjanaan Invois Yuran Bulanan", adm_act_3: "Laporan Log Keselamatan & QR",
-                alert_in: "Adam Malik telah berjaya melakukan Check-In pada ", alert_out: "Adam Malik telah berjaya melakukan Check-Out pada ",
-                alert_msg_sent: "Mesej dihantar!", alert_quiz_ok: "🎉 PANDAI! Jawapan betul. Anda dapat +5 Bintang!", alert_quiz_fail: "❌ Alamak, cuba lagi sayang! Tekan butang yang satu lagi.",
-                alert_audio: "🔊 Memainkan suara sebutan: ", alert_attendance_saved: "Kehadiran berjaya disimpan dan notifikasi dihantar ke ibu bapa!",
-                alert_shared: "Berjaya dikongsi ke feed Ibu Bapa!", alert_admin_1: "Borang tambah pelajar baru dibuka", alert_admin_2: "Sistem yuran automatik diaktifkan", alert_admin_3: "Log keselamatan dijana",
-                modal_reg_title: " Borang Pendaftaran Baru", lbl_form_name: "Nama Penuh Pelajar:", lbl_form_age: "Umur (Tahun):", lbl_form_relation: "Hubungan Penjaga:",
-                lbl_form_pname: "Nama Penuh Penjaga:", lbl_form_phone: "No. Telefon Bimbit:", btn_form_cancel: "Batal", btn_form_submit: "Daftar Sekarang",
-                success_reg: " Berjaya mendaftarkan pelajar: "
-            },
-            en: {
-                welcome: "Welcome! 👋",
-                student: "Student", parent: "Parent", teacher: "Teacher", admin: "Admin",
-                student_sub: "(4-12 Years)", parent_sub: "(Guardian)", teacher_sub: "(Educator)", admin_sub: "(Management)",
-                qr_title: "Scan Attendance (QR Code)", qr_status: "Ready for Check-in / Out",
-                sim_in: "Simulate Check-In", sim_out: "Simulate Check-Out",
-                nav_home: "Home", nav_student: "Student", nav_parent: "Parent", nav_teacher: "Teacher", nav_admin: "Admin",
-                zone_title: "Fun Learning Zone! 🚀", streak: "Streak: 5 Days",
-                sub_bm: "Malay Language", sub_en: "English", sub_math: "Mathematics", sub_sci: "Science", sub_is: "Islamic Ed.", sub_art: "Arts & Craft",
-                flash_tag: "Activity Flashcard", quiz_prompt: "Brain Teaser: Choose the correct answer!",
-                reward_title: "My Rewards & Badges", badge_p: "Smart", badge_b: "Kind Heart", badge_l: "Fast (Locked)", badge_j: "Champion (Locked)",
-                parent_class: "Smart Kindergarten (4 Cerdik)", stat_attendance: "Attendance", stat_performance: "Avg Performance", stat_fees: "Outstanding",
-                chart_title: "Monthly Learning Performance", teacher_msg_title: "Message from Teacher Sofia",
-                teacher_comment: '"Adam was very active in science class today, he successfully answered all animal quizzes!"',
-                input_reply: "Reply to teacher...", wallet_title: "Finance & Events", bill_title: "July 2026 Monthly Fees", bill_status: "Paid",
-                event_title: "Kindergarten Sports Day", event_date: "Date: July 15, 2026",
-                teacher_header: "Educator Corner 👩‍🏫", take_attendance: "Take Attendance Today", btn_present: "Present", btn_absent: "Absent",
-                btn_submit_attendance: "Confirm Attendance", upload_homework: "Upload Homework / Activity", lbl_act_title: "Activity Title:",
-                input_act_title: "Example: Coloring Butterfly Picture", lbl_choose_sub: "Select Subject:", upload_desc: "Click to capture image or attach classroom photo file",
-                btn_share_activity: "Share with Guardians", admin_header: "Admin Management System 🏛️", total_students: "Total Students",
-                total_teachers: "Registered Teachers", admin_actions: "Admin Quick Actions", adm_act_1: "New Student Registration",
-                adm_act_2: "Generate Monthly Fee Invoice", adm_act_3: "Security Log & QR Report",
-                alert_in: "Adam Malik successfully Checked-In at ", alert_out: "Adam Malik successfully
+    <div id="modal-student-list" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50 animate-fade-in">
+        <div class="bg-white rounded-3xl w-full max-w-sm p-
