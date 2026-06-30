@@ -216,7 +216,7 @@
                 <div class="flex justify-between items-center p-2 bg-amber-50 rounded-lg border border-amber-200">
                     <div>
                         <p id="txt-event-title" class="font-bold text-amber-800">Hari Sukan Tadika</p>
-                        <p id="txt-event-date" class="text-[10px] text-amber-600">Tarikh: 15 Julai 2026</p>
+                        <p class="text-[10px] text-slate-400">Tarikh: 15 Julai 2026</p>
                     </div>
                     <i class="fas fa-calendar-day text-amber-500 text-lg"></i>
                 </div>
@@ -281,7 +281,7 @@
             
             <div class="grid grid-cols-2 gap-2 text-center text-xs">
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-sky-400">
-                    <span class="block font-bold text-lg text-slate-800">42</span>
+                    <span id="num-total-students" class="block font-bold text-lg text-slate-800">42</span>
                     <span id="txt-total-students" class="text-slate-500 text-[10px]">Jumlah Pelajar</span>
                 </div>
                 <div class="bg-white p-3 rounded-xl shadow-sm border-l-4 border-emerald-400">
@@ -308,6 +308,47 @@
         </div>
 
     </main>
+
+    <div id="modal-registration" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50 animate-fade-in">
+        <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-sky-400 space-y-4">
+            <div class="flex justify-between items-center border-b pb-2 border-slate-100">
+                <h3 id="modal-reg-title" class="kids-title text-sky-600 font-bold text-base"><i class="fas fa-user-plus mr-1"></i> Borang Pendaftaran Baru</h3>
+                <button onclick="closeRegistrationModal()" class="text-slate-400 hover:text-slate-600 font-bold text-xl cursor-pointer">&times;</button>
+            </div>
+            <form id="form-new-student" onsubmit="submitNewStudent(event)" class="space-y-3 text-xs">
+                <div>
+                    <label id="lbl-form-name" class="block font-bold text-slate-600 mb-1">Nama Penuh Pelajar:</label>
+                    <input type="text" id="reg-student-name" required placeholder="Contoh: Muhammad Ali" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-sky-400">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label id="lbl-form-age" class="block font-bold text-slate-600 mb-1">Umur (Tahun):</label>
+                        <input type="number" id="reg-student-age" min="4" max="12" required placeholder="cth: 5" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-sky-400">
+                    </div>
+                    <div>
+                        <label id="lbl-form-relation" class="block font-bold text-slate-600 mb-1">Hubungan Penjaga:</label>
+                        <select id="reg-parent-relation" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-sky-400">
+                            <option value="Bapa" id="opt-father">Bapa / Father</option>
+                            <option value="Ibu" id="opt-mother">Ibu / Mother</option>
+                            <option value="Penjaga" id="opt-guardian">Penjaga / Guardian</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label id="lbl-form-pname" class="block font-bold text-slate-600 mb-1">Nama Penuh Penjaga:</label>
+                    <input type="text" id="reg-parent-name" required placeholder="Contoh: Ahmad Bin Yusof" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-sky-400">
+                </div>
+                <div>
+                    <label id="lbl-form-phone" class="block font-bold text-slate-600 mb-1">No. Telefon Bimbit:</label>
+                    <input type="tel" id="reg-parent-phone" required placeholder="Contoh: 0123456789" class="w-full p-2 border rounded-lg bg-slate-50 focus:outline-sky-400">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeRegistrationModal()" id="btn-form-cancel" class="flex-1 bg-slate-200 text-slate-600 font-bold py-2 rounded-xl shadow active:scale-95 cursor-pointer">Batal</button>
+                    <button type="submit" id="btn-form-submit" class="flex-1 bg-sky-500 text-white font-bold py-2 rounded-xl shadow active:scale-95 cursor-pointer">Daftar Sekarang</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <nav class="bg-white border-t border-slate-200 fixed bottom-0 inset-x-0 h-16 flex justify-around items-center px-2 shadow-inner z-20">
         <button onclick="switchView('home')" id="nav-home" class="flex flex-col items-center justify-center text-amber-500 font-bold transition-all transform scale-110 cursor-pointer">
@@ -359,7 +400,10 @@
                 alert_in: "Adam Malik telah berjaya melakukan Check-In pada ", alert_out: "Adam Malik telah berjaya melakukan Check-Out pada ",
                 alert_msg_sent: "Mesej dihantar!", alert_quiz_ok: "🎉 PANDAI! Jawapan betul. Anda dapat +5 Bintang!", alert_quiz_fail: "❌ Alamak, cuba lagi sayang! Tekan butang yang satu lagi.",
                 alert_audio: "🔊 Memainkan suara sebutan: ", alert_attendance_saved: "Kehadiran berjaya disimpan dan notifikasi dihantar ke ibu bapa!",
-                alert_shared: "Berjaya dikongsi ke feed Ibu Bapa!", alert_admin_1: "Borang tambah pelajar baru dibuka", alert_admin_2: "Sistem yuran automatik diaktifkan", alert_admin_3: "Log keselamatan dijana"
+                alert_shared: "Berjaya dikongsi ke feed Ibu Bapa!", alert_admin_1: "Borang tambah pelajar baru dibuka", alert_admin_2: "Sistem yuran automatik diaktifkan", alert_admin_3: "Log keselamatan dijana",
+                modal_reg_title: " Borang Pendaftaran Baru", lbl_form_name: "Nama Penuh Pelajar:", lbl_form_age: "Umur (Tahun):", lbl_form_relation: "Hubungan Penjaga:",
+                lbl_form_pname: "Nama Penuh Penjaga:", lbl_form_phone: "No. Telefon Bimbit:", btn_form_cancel: "Batal", btn_form_submit: "Daftar Sekarang",
+                success_reg: " Berjaya mendaftarkan pelajar: "
             },
             en: {
                 welcome: "Welcome! 👋",
@@ -387,13 +431,16 @@
                 alert_msg_sent: "Message sent!", alert_quiz_ok: "🎉 SMART! Correct answer. You got +5 Stars!", alert_quiz_fail: "❌ Oops, try again dear! Press the other button.",
                 alert_audio: "🔊 Playing pronunciation audio: ", alert_attendance_saved: "Attendance saved successfully and notifications sent to parents!",
                 alert_shared: "Successfully shared to Parent's feed!", alert_admin_1: "Opening new student registration form", alert_admin_2: "Automatic fee settings activated", alert_admin_3: "Security log report generated",
+                modal_reg_title: " New Student Registration Form", lbl_form_name: "Student Full Name:", lbl_form_age: "Age (Years):", lbl_form_relation: "Guardian Relationship:",
+                lbl_form_pname: "Guardian Full Name:", lbl_form_phone: "Mobile Phone No:", btn_form_cancel: "Cancel", btn_form_submit: "Register Now",
+                success_reg: " Successfully registered student: "
             }
         };
 
         let currentLang = 'ms';
         let selectedFileName = ""; 
+        let totalStudentsCount = 42;
 
-        // Menguruskan fail yang dipilih/ditangkap oleh kamera
         function handleFileSelect(input) {
             if (input.files && input.files[0]) {
                 selectedFileName = input.files[0].name;
@@ -474,7 +521,6 @@
             document.getElementById('input-act-title').placeholder = translations[lang].input_act_title;
             document.getElementById('lbl-choose-sub').innerText = translations[lang].lbl_choose_sub;
             
-            // Jikalau tiada fail dipilih, tukar teks mengikut bahasa asal
             if (!selectedFileName) {
                 document.getElementById('txt-upload-desc').innerText = translations[lang].upload_desc;
             }
@@ -488,6 +534,16 @@
             document.getElementById('adm-act-1').innerText = translations[lang].adm_act_1;
             document.getElementById('adm-act-2').innerText = translations[lang].adm_act_2;
             document.getElementById('adm-act-3').innerText = translations[lang].adm_act_3;
+
+            // Terjemahan komponen Modal Pendaftaran baru
+            document.getElementById('modal-registration').querySelector('h3').innerHTML = `<i class="fas fa-user-plus mr-1"></i> ${translations[lang].modal_reg_title}`;
+            document.getElementById('lbl-form-name').innerText = translations[lang].lbl_form_name;
+            document.getElementById('lbl-form-age').innerText = translations[lang].lbl_form_age;
+            document.getElementById('lbl-form-relation').innerText = translations[lang].lbl_form_relation;
+            document.getElementById('lbl-form-pname').innerText = translations[lang].lbl_form_pname;
+            document.getElementById('lbl-form-phone').innerText = translations[lang].lbl_form_phone;
+            document.getElementById('btn-form-cancel').innerText = translations[lang].btn_form_cancel;
+            document.getElementById('btn-form-submit').innerText = translations[lang].btn_form_submit;
 
             if(lang === 'en') {
                 document.getElementById('btn-quiz-opt1').innerText = "🍎 Apple";
@@ -600,8 +656,31 @@
             document.getElementById('txt-upload-desc').innerText = translations[currentLang].upload_desc;
         }
 
+        // FUNGSI ADMIN ACTION YANG TELAH DIPERBAIKI
         function adminAction(type) {
-            alert(translations[currentLang]['alert_admin_' + type]);
+            if (type === 1) {
+                // Berjaya membuka modal pendaftaran pelajar baru
+                document.getElementById('modal-registration').classList.remove('hidden');
+            } else {
+                alert(translations[currentLang]['alert_admin_' + type]);
+            }
+        }
+
+        function closeRegistrationModal() {
+            document.getElementById('modal-registration').classList.add('hidden');
+            document.getElementById('form-new-student').reset();
+        }
+
+        function submitNewStudent(event) {
+            event.preventDefault();
+            const studentName = document.getElementById('reg-student-name').value;
+            
+            // Pengiraan simulasi penambahan pelajar
+            totalStudentsCount++;
+            document.getElementById('num-total-students').innerText = totalStudentsCount;
+            
+            alert(`🎉 ${translations[currentLang].success_reg}${studentName}!`);
+            closeRegistrationModal();
         }
 
         function toggleAttendanceBtn(btn) {
