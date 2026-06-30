@@ -296,6 +296,10 @@
                     <span><i class="fas fa-user-plus text-sky-500 mr-2"></i> <span id="adm-act-1">Pendaftaran Pelajar Baru</span></span>
                     <i class="fas fa-chevron-right text-slate-400"></i>
                 </button>
+                <button onclick="adminAction(4)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
+                    <span><i class="fas fa-list text-emerald-500 mr-2"></i> <span id="adm-act-4">Senarai Pelajar Berdaftar</span></span>
+                    <i class="fas fa-chevron-right text-slate-400"></i>
+                </button>
                 <button onclick="adminAction(2)" class="w-full text-left p-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg font-medium flex justify-between items-center cursor-pointer">
                     <span><i class="fas fa-file-invoice-dollar text-amber-500 mr-2"></i> <span id="adm-act-2">Penjanaan Invois Yuran Bulanan</span></span>
                     <i class="fas fa-chevron-right text-slate-400"></i>
@@ -350,6 +354,20 @@
         </div>
     </div>
 
+    <div id="modal-student-list" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50 animate-fade-in">
+        <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-emerald-400 space-y-4">
+            <div class="flex justify-between items-center border-b pb-2 border-slate-100">
+                <h3 id="modal-list-title" class="kids-title text-emerald-600 font-bold text-base"><i class="fas fa-list mr-1"></i> Senarai Pelajar Berdaftar</h3>
+                <button onclick="closeStudentListModal()" class="text-slate-400 hover:text-slate-600 font-bold text-xl cursor-pointer">&times;</button>
+            </div>
+            <div class="max-h-60 overflow-y-auto custom-scrollbar space-y-2 text-xs" id="student-list-container">
+                </div>
+            <div class="pt-2">
+                <button type="button" onclick="closeStudentListModal()" id="btn-list-close" class="w-full bg-slate-200 text-slate-600 font-bold py-2 rounded-xl shadow active:scale-95 cursor-pointer">Tutup</button>
+            </div>
+        </div>
+    </div>
+
     <nav class="bg-white border-t border-slate-200 fixed bottom-0 inset-x-0 h-16 flex justify-around items-center px-2 shadow-inner z-20">
         <button onclick="switchView('home')" id="nav-home" class="flex flex-col items-center justify-center text-amber-500 font-bold transition-all transform scale-110 cursor-pointer">
             <i class="fas fa-home text-xl"></i>
@@ -396,14 +414,14 @@
                 input_act_title: "Contoh: Mewarna Gambar Rama-rama", lbl_choose_sub: "Pilih Subjek:", upload_desc: "Klik untuk tangkap gambar atau lampir fail gambar kelas",
                 btn_share_activity: "Kongsi Kepada Penjaga", admin_header: "Sistem Pengurusan Admin 🏛️", total_students: "Jumlah Pelajar",
                 total_teachers: "Guru Berdaftar", admin_actions: "Tindakan Pantas Admin", adm_act_1: "Pendaftaran Pelajar Baru",
-                adm_act_2: "Penjanaan Invois Yuran Bulanan", adm_act_3: "Laporan Log Keselamatan & QR",
+                adm_act_2: "Penjanaan Invois Yuran Bulanan", adm_act_3: "Laporan Log Keselamatan & QR", adm_act_4: "Senarai Pelajar Berdaftar",
                 alert_in: "Adam Malik telah berjaya melakukan Check-In pada ", alert_out: "Adam Malik telah berjaya melakukan Check-Out pada ",
                 alert_msg_sent: "Mesej dihantar!", alert_quiz_ok: "🎉 PANDAI! Jawapan betul. Anda dapat +5 Bintang!", alert_quiz_fail: "❌ Alamak, cuba lagi sayang! Tekan butang yang satu lagi.",
                 alert_audio: "🔊 Memainkan suara sebutan: ", alert_attendance_saved: "Kehadiran berjaya disimpan dan notifikasi dihantar ke ibu bapa!",
                 alert_shared: "Berjaya dikongsi ke feed Ibu Bapa!", alert_admin_1: "Borang tambah pelajar baru dibuka", alert_admin_2: "Sistem yuran automatik diaktifkan", alert_admin_3: "Log keselamatan dijana",
-                modal_reg_title: " Borang Pendaftaran Baru", lbl_form_name: "Nama Penuh Pelajar:", lbl_form_age: "Umur (Tahun):", lbl_form_relation: "Hubungan Penjaga:",
-                lbl_form_pname: "Nama Penuh Penjaga:", lbl_form_phone: "No. Telefon Bimbit:", btn_form_cancel: "Batal", btn_form_submit: "Daftar Sekarang",
-                success_reg: " Berjaya mendaftarkan pelajar: "
+                modal_reg_title: " Borang Pendaftaran Baru", modal_list_title: " Senarai Pelajar Berdaftar", lbl_form_name: "Nama Penuh Pelajar:", lbl_form_age: "Umur (Tahun):", lbl_form_relation: "Hubungan Penjaga:",
+                lbl_form_pname: "Nama Penuh Penjaga:", lbl_form_phone: "No. Telefon Bimbit:", btn_form_cancel: "Batal", btn_form_submit: "Daftar Sekarang", btn_list_close: "Tutup",
+                success_reg: " Berjaya mendaftarkan pelajar: ", guardian_lbl: "Penjaga"
             },
             en: {
                 welcome: "Welcome! 👋",
@@ -426,20 +444,27 @@
                 input_act_title: "Example: Coloring Butterfly Picture", lbl_choose_sub: "Select Subject:", upload_desc: "Click to capture image or attach classroom photo file",
                 btn_share_activity: "Share with Guardians", admin_header: "Admin Management System 🏛️", total_students: "Total Students",
                 total_teachers: "Registered Teachers", admin_actions: "Admin Quick Actions", adm_act_1: "New Student Registration",
-                adm_act_2: "Generate Monthly Fee Invoice", adm_act_3: "Security Log & QR Report",
+                adm_act_2: "Generate Monthly Fee Invoice", adm_act_3: "Security Log & QR Report", adm_act_4: "Registered Student List",
                 alert_in: "Adam Malik successfully Checked-In at ", alert_out: "Adam Malik successfully Checked-Out at ",
                 alert_msg_sent: "Message sent!", alert_quiz_ok: "🎉 SMART! Correct answer. You got +5 Stars!", alert_quiz_fail: "❌ Oops, try again dear! Press the other button.",
                 alert_audio: "🔊 Playing pronunciation audio: ", alert_attendance_saved: "Attendance saved successfully and notifications sent to parents!",
                 alert_shared: "Successfully shared to Parent's feed!", alert_admin_1: "Opening new student registration form", alert_admin_2: "Automatic fee settings activated", alert_admin_3: "Security log report generated",
-                modal_reg_title: " New Student Registration Form", lbl_form_name: "Student Full Name:", lbl_form_age: "Age (Years):", lbl_form_relation: "Guardian Relationship:",
-                lbl_form_pname: "Guardian Full Name:", lbl_form_phone: "Mobile Phone No:", btn_form_cancel: "Cancel", btn_form_submit: "Register Now",
-                success_reg: " Successfully registered student: "
+                modal_reg_title: " New Student Registration Form", modal_list_title: " Registered Student List", lbl_form_name: "Student Full Name:", lbl_form_age: "Age (Years):", lbl_form_relation: "Guardian Relationship:",
+                lbl_form_pname: "Guardian Full Name:", lbl_form_phone: "Mobile Phone No:", btn_form_cancel: "Cancel", btn_form_submit: "Register Now", btn_list_close: "Close",
+                success_reg: " Successfully registered student: ", guardian_lbl: "Guardian"
             }
         };
 
         let currentLang = 'ms';
         let selectedFileName = ""; 
         let totalStudentsCount = 42;
+
+        // Simulasi pangkalan data pelajar asal
+        let studentsList = [
+            { name: "Adam Malik", age: 5, relation: "Bapa", parentName: "Ahmad Bin Yusof" },
+            { name: "Zara Aisya", age: 6, relation: "Ibu", parentName: "Siti Aminah" },
+            { name: "Muhammad Ali", age: 5, relation: "Bapa", parentName: "Yusof Kassim" }
+        ];
 
         function handleFileSelect(input) {
             if (input.files && input.files[0]) {
@@ -534,6 +559,7 @@
             document.getElementById('adm-act-1').innerText = translations[lang].adm_act_1;
             document.getElementById('adm-act-2').innerText = translations[lang].adm_act_2;
             document.getElementById('adm-act-3').innerText = translations[lang].adm_act_3;
+            document.getElementById('adm-act-4').innerText = translations[lang].adm_act_4;
 
             // Terjemahan komponen Modal Pendaftaran baru
             document.getElementById('modal-registration').querySelector('h3').innerHTML = `<i class="fas fa-user-plus mr-1"></i> ${translations[lang].modal_reg_title}`;
@@ -544,6 +570,10 @@
             document.getElementById('lbl-form-phone').innerText = translations[lang].lbl_form_phone;
             document.getElementById('btn-form-cancel').innerText = translations[lang].btn_form_cancel;
             document.getElementById('btn-form-submit').innerText = translations[lang].btn_form_submit;
+
+            // Terjemahan komponen Modal Senarai Pelajar
+            document.getElementById('modal-student-list').querySelector('h3').innerHTML = `<i class="fas fa-list mr-1"></i> ${translations[lang].modal_list_title}`;
+            document.getElementById('btn-list-close').innerText = translations[lang].btn_list_close;
 
             if(lang === 'en') {
                 document.getElementById('btn-quiz-opt1').innerText = "🍎 Apple";
@@ -656,11 +686,11 @@
             document.getElementById('txt-upload-desc').innerText = translations[currentLang].upload_desc;
         }
 
-        // FUNGSI ADMIN ACTION YANG TELAH DIPERBAIKI
         function adminAction(type) {
             if (type === 1) {
-                // Berjaya membuka modal pendaftaran pelajar baru
                 document.getElementById('modal-registration').classList.remove('hidden');
+            } else if (type === 4) {
+                openStudentListModal();
             } else {
                 alert(translations[currentLang]['alert_admin_' + type]);
             }
@@ -674,13 +704,50 @@
         function submitNewStudent(event) {
             event.preventDefault();
             const studentName = document.getElementById('reg-student-name').value;
+            const studentAge = document.getElementById('reg-student-age').value;
+            const parentRelation = document.getElementById('reg-parent-relation').value;
+            const parentName = document.getElementById('reg-parent-name').value;
             
+            // Simpan maklumat pelajar baru ke dalam senarai
+            studentsList.push({
+                name: studentName,
+                age: studentAge,
+                relation: parentRelation,
+                parentName: parentName
+            });
+
             // Pengiraan simulasi penambahan pelajar
             totalStudentsCount++;
             document.getElementById('num-total-students').innerText = totalStudentsCount;
             
             alert(`🎉 ${translations[currentLang].success_reg}${studentName}!`);
             closeRegistrationModal();
+        }
+
+        function openStudentListModal() {
+            document.getElementById('modal-student-list').classList.remove('hidden');
+            renderStudentList();
+        }
+
+        function closeStudentListModal() {
+            document.getElementById('modal-student-list').classList.add('hidden');
+        }
+
+        function renderStudentList() {
+            const container = document.getElementById('student-list-container');
+            container.innerHTML = "";
+            
+            studentsList.forEach((student, index) => {
+                const item = document.createElement('div');
+                item.className = "p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex justify-between items-center";
+                item.innerHTML = `
+                    <div>
+                        <p class="font-bold text-slate-700">${index + 1}. ${student.name} (${student.age} Thn)</p>
+                        <p class="text-[10px] text-slate-500">${translations[currentLang].guardian_lbl}: ${student.parentName} (${student.relation})</p>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
         }
 
         function toggleAttendanceBtn(btn) {
