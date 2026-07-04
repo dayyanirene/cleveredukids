@@ -136,12 +136,12 @@
                     </div>
 
                     <nav id="sidebar-menu" class="space-y-1">
-                        </nav>
+                    </nav>
                 </div>
 
                 <div class="border-t border-slate-200 dark:border-slate-800 pt-4 flex flex-col gap-3">
                     <div class="flex items-center gap-3 px-2">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" id="user-avatar" class="w-10 h-10 rounded-full border-2 border-brand-500 object-cover" alt="Profile">
+                        <img src="https://images.unsplash.com/photo-1534527741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" id="user-avatar" class="w-10 h-10 rounded-full border-2 border-brand-500 object-cover" alt="Profile">
                         <div class="overflow-hidden">
                             <h4 class="font-semibold text-sm truncate" id="user-display-name">Aisyah Humaira</h4>
                             <p class="text-xs text-slate-400 truncate" id="user-display-email">aisyah@dasmot.com</p>
@@ -179,11 +179,11 @@
                 </header>
 
                 <div id="content-view" class="p-4 md:p-6 flex-1 max-w-7xl w-full mx-auto space-y-6">
-                    </div>
+                </div>
             </main>
 
             <nav id="bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 glass dark:glass border-t border-slate-200 dark:border-slate-800 flex justify-around py-2 z-40">
-                </nav>
+            </nav>
         </div>
     </div>
 
@@ -287,8 +287,8 @@
                 { date: '2026-06-30', checkIn: '09:15 AM', checkOut: '--:--', status: 'Lewat' }
             ],
             leaves: [
-                { id: 1, type: 'Cuti Tahunan', date: '2026-07-05', duration: '2 Hari', status: 'Dalam Proses' },
-                { id: 2, type: 'Cuti Sakit', date: '2026-06-12', duration: '1 Hari', status: 'Diluluskan' }
+                { id: 1, type: 'Cuti Tahunan', date: '2026-07-05', duration: '2 Hari', status: 'Dalam Proses', document: 'Tiada' },
+                { id: 2, type: 'Cuti Sakit', date: '2026-06-12', duration: '1 Hari', status: 'Diluluskan', document: 'mc_klinik.pdf' }
             ],
             claims: [
                 { id: 101, type: 'Petrol', amount: 'RM 85.00', date: '2026-06-25', status: 'Diluluskan' },
@@ -716,7 +716,7 @@
                     <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800">
                         <h3 class="font-bold text-sm mb-3">Log Kehadiran Semasa (Realtime Firestore Sync)</h3>
                         <div class="space-y-3" id="log-kehadiran-list">
-                            </div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -772,6 +772,18 @@
                             <label class="block text-xs text-slate-400 mb-1">Tarikh Mula</label>
                             <input type="date" id="leave-date" class="w-full p-2 text-sm bg-slate-50 dark:bg-slate-800 rounded-xl focus:outline-none border border-slate-200 dark:border-slate-700">
                         </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Tarikh Tamat</label>
+                            <input type="date" id="leave-end-date" class="w-full p-2 text-sm bg-slate-50 dark:bg-slate-800 rounded-xl focus:outline-none border border-slate-200 dark:border-slate-700">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Dokumen Sokongan (Sijil Sakit / Resit dll)</label>
+                            <div onclick="document.getElementById('leave-document-file').click()" class="border-2 border-dashed border-slate-200 dark:border-slate-700 p-3 rounded-xl text-center cursor-pointer text-slate-400 hover:text-brand-500 transition">
+                                <span class="material-symbols-rounded text-xl">upload_file</span>
+                                <p class="text-[11px] mt-1" id="file-upload-status">Klik untuk muat naik dokumen</p>
+                            </div>
+                            <input type="file" id="leave-document-file" class="hidden" onchange="handleFileChange(this)">
+                        </div>
                         <button onclick="mohonCutiKakitangan()" class="w-full py-2 bg-brand-500 text-white text-xs font-bold rounded-xl shadow hover:bg-brand-600 transition">Hantar Borang Cuti</button>
                     </div>
 
@@ -784,19 +796,41 @@
             refreshCutiList();
         }
 
+        window.handleFileChange = function(input) {
+            const statusEl = document.getElementById('file-upload-status');
+            if (input.files && input.files.length > 0) {
+                statusEl.innerText = `Dipilih: ${input.files[0].name}`;
+                statusEl.classList.add('text-brand-500', 'font-semibold');
+            } else {
+                statusEl.innerText = "Klik untuk muat naik dokumen";
+                statusEl.classList.remove('text-brand-500', 'font-semibold');
+            }
+        };
+
         window.mohonCutiKakitangan = function() {
             const tipe = document.getElementById('leave-type').value;
-            const tgl = document.getElementById('leave-date').value || '2026-07-10';
+            const tglMula = document.getElementById('leave-date').value || '2026-07-10';
+            const tglTamat = document.getElementById('leave-end-date').value || '2026-07-11';
+            const fileInput = document.getElementById('leave-document-file');
+            const namaFail = fileInput.files.length > 0 ? fileInput.files[0].name : 'Tiada Dokumen';
+            
+            // Hitung anggaran durasi hari secara ringkas
+            const d1 = new Date(tglMula);
+            const d2 = new Date(tglTamat);
+            const diffTime = Math.abs(d2 - d1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            const durasiStr = isNaN(diffDays) ? '1 Hari' : `${diffDays} Hari`;
             
             window.state.leaves.unshift({
                 id: Date.now(),
                 type: tipe,
-                date: tgl,
-                duration: '1 Hari',
-                status: 'Dalam Proses'
+                date: `${tglMula} hingga ${tglTamat}`,
+                duration: durasiStr,
+                status: 'Dalam Proses',
+                document: namaFail
             });
             
-            alert('Permohonan cuti anda berjaya dihantar ke Cloud Firestore dan sedang menanti kelulusan majikan.');
+            alert('Permohonan cuti anda berjaya dihantar ke Cloud Firestore bersama dokumen sokongan dan sedang menanti kelulusan majikan.');
             refreshCutiList();
         };
 
@@ -808,6 +842,7 @@
                         <div>
                             <p class="font-bold">${l.type}</p>
                             <p class="text-slate-400">Tarikh: ${l.date} (${l.duration})</p>
+                            <p class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5"><span class="material-symbols-rounded text-sm">attach_file</span> Dokumen: ${l.document || 'Tiada'}</p>
                         </div>
                         <span class="px-2 py-0.5 ${l.status === 'Diluluskan' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} font-semibold rounded text-[10px]">${l.status}</span>
                     </div>
@@ -1028,7 +1063,7 @@
                 if (promptValue.includes('cuti')) {
                     responseText = "Analisis AI Cuti: Trend menunjukkan permohonan cuti meningkat menjelang minggu pertama Julai 2026 bersempena cuti persekolahan. Disyorkan pengurus menyemak kuota pasukan.";
                 } else if (promptValue.includes('gaji') || promptValue.includes('payroll')) {
-                    responseText = "Analisis AI Payroll: Tiada ralat pematuhan PCB dikesan untuk kitaran bulan Jun 2026. Semua sumbangan caruman KWSP & SOCSO berada di landasan yang behavi.";
+                    responseText = "Analisis AI Payroll: Tiada ralat pematuhan PCB dikesan untuk kitaran bulan Jun 2026. Semua sumbangan caruman KWSP & SOCSO berada di landasan yang bebahagi.";
                 }
                 
                 aiDiv.innerHTML = `
